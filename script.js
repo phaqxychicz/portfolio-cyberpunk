@@ -1,11 +1,10 @@
-// BOOT SEQUENCE - NORMAL
+// ==================== BOOT SEQUENCE ====================
 const bootTexts = [
     "> ROG STRIX BIOS v.4012",
     "> Republic of Gamers - Cyberdeck Initiated",
     "> Scanning neural link... OK",
-    "> Loading user profile: zamzami ... OK",
+    "> Loading user profile: ZAMZAMI ... OK",
     "> Entering the void..."
-    "> plenger man...
 ];
 
 let bootIndex = 0;
@@ -25,17 +24,14 @@ function typeBootText() {
                 document.getElementById('slide1').classList.add('active-slide');
                 updateSlideIndicator(1);
                 
-                // 🔥 PASTIKAN NAVIGASI DIPANGGIL SETELAH SLIDE MUNCUL
-                attachNavListeners();
-                autoSkillBar();
-                initProjects();
-                initContactButtons();
+                // Panggil semua fungsi setelah slide muncul
+                initAll();
             }, 500);
         }, 1000);
     }
 }
 
-// SLIDE NAVIGATION
+// ==================== SLIDE NAVIGATION ====================
 let currentSlide = 1;
 const totalSlides = 4;
 
@@ -54,7 +50,7 @@ function showSlide(slideNumber) {
 }
 
 function updateSlideIndicator(slideNumber) {
-    const dots = document.querySelectorAll(`.slide-indicator .dot`);
+    const dots = document.querySelectorAll('.slide-indicator .dot');
     dots.forEach((dot, idx) => {
         if (idx + 1 === slideNumber) {
             dot.classList.add('active');
@@ -64,46 +60,41 @@ function updateSlideIndicator(slideNumber) {
     });
 }
 
-function attachNavListeners() {
-    console.log("Attaching navigation listeners...");
-    
+// ==================== TOMBOL NAVIGASI ====================
+function initNavigation() {
     // Tombol NEXT
-    document.querySelectorAll('.next-slide-btn').forEach(btn => {
-        btn.removeEventListener('click', handleNextClick);
-        btn.addEventListener('click', handleNextClick);
+    const nextButtons = document.querySelectorAll('.next-slide-btn');
+    nextButtons.forEach(btn => {
+        btn.onclick = function() {
+            const next = this.getAttribute('data-next');
+            if (next) showSlide(parseInt(next));
+        };
     });
     
     // Tombol PREV
-    document.querySelectorAll('.prev-slide-btn').forEach(btn => {
-        btn.removeEventListener('click', handlePrevClick);
-        btn.addEventListener('click', handlePrevClick);
+    const prevButtons = document.querySelectorAll('.prev-slide-btn');
+    prevButtons.forEach(btn => {
+        btn.onclick = function() {
+            const prev = this.getAttribute('data-prev');
+            if (prev) showSlide(parseInt(prev));
+        };
     });
 }
 
-function handleNextClick(e) {
-    const next = e.currentTarget.getAttribute('data-next');
-    if (next) showSlide(parseInt(next));
-}
-
-function handlePrevClick(e) {
-    const prev = e.currentTarget.getAttribute('data-prev');
-    if (prev) showSlide(parseInt(prev));
-}
-
-// AUTO SKILL BAR
-function autoSkillBar() {
+// ==================== AUTO SKILL BAR ====================
+function initSkillBar() {
     const skillCards = document.querySelectorAll('.skill-card');
     skillCards.forEach(card => {
-        const percentText = card.querySelector('.skill-percent')?.textContent;
-        const percent = parseInt(percentText);
+        const percentSpan = card.querySelector('.skill-percent');
         const barFill = card.querySelector('.skill-bar-fill');
-        if (barFill && percent) {
+        if (percentSpan && barFill) {
+            const percent = parseInt(percentSpan.textContent);
             barFill.style.width = percent + '%';
         }
     });
 }
 
-// PROJECTS DATA
+// ==================== PROJECTS ====================
 const projectsData = [
     {
         title: "Cyberpunk Poster Series",
@@ -131,7 +122,7 @@ function initProjects() {
     
     grid.innerHTML = '';
     
-    projectsData.forEach((project) => {
+    projectsData.forEach((project, index) => {
         const card = document.createElement('div');
         card.className = 'project-card';
         card.innerHTML = `
@@ -139,48 +130,46 @@ function initProjects() {
             <h4>${project.title}</h4>
             <p>${project.desc.substring(0, 55)}...</p>
         `;
-        card.addEventListener('click', () => openModal(project));
+        card.onclick = () => openModal(project);
         grid.appendChild(card);
     });
 }
 
 function openModal(project) {
     const modal = document.getElementById('projectModal');
-    document.getElementById('modalTitle').textContent = project.title;
+    document.getElementById('modalTitle').innerText = project.title;
     document.getElementById('modalImage').src = project.image;
-    document.getElementById('modalDesc').textContent = project.desc;
+    document.getElementById('modalDesc').innerText = project.desc;
     document.getElementById('modalTech').innerHTML = `<strong>Tech:</strong> ${project.tech}`;
     modal.classList.remove('hidden');
 }
 
 function closeModal() {
-    document.getElementById('projectModal').classList.add('hidden');
+    const modal = document.getElementById('projectModal');
+    modal.classList.add('hidden');
 }
 
-// CONTACT BUTTONS
-function initContactButtons() {
+// ==================== CONTACT BUTTONS ====================
+function initContacts() {
     const contactItems = document.querySelectorAll('.contact-item');
     
     contactItems.forEach(item => {
         const btn = item.querySelector('.contact-btn');
         const type = item.getAttribute('data-type');
         const span = item.querySelector('span');
-        const value = span.textContent;
+        const value = span.innerText;
         
-        // Hapus listener lama biar tidak dobel
-        btn.removeEventListener('click', handleContactClick);
-        btn.addEventListener('click', () => handleContactClick(type, value));
+        btn.onclick = () => {
+            if (type === 'instagram') {
+                window.open(`https://instagram.com/${value.replace('@', '')}`, '_blank');
+            } else if (type === 'github') {
+                window.open(`https://github.com/${value.replace('@', '')}`, '_blank');
+            }
+        };
     });
 }
 
-function handleContactClick(type, value) {
-    let url = '';
-    if (type === 'instagram') url = `https://instagram.com/${value.replace('@', '')}`;
-    if (type === 'github') url = `https://github.com/${value.replace('@', '')}`;
-    if (url) window.open(url, '_blank');
-}
-
-// MUSIC PLAYER
+// ==================== MUSIC PLAYER ====================
 const playlist = [
     { src: "assets/music/music-1.mp3", title: "Dandelions" },
     { src: "assets/music/music-2.mp3", title: "Gak Pake Lama" },
@@ -202,94 +191,105 @@ function loadTrack(index) {
     if (index >= playlist.length) index = 0;
     currentTrack = index;
     bgMusic.src = playlist[currentTrack].src;
-    trackTitle.textContent = playlist[currentTrack].title;
+    trackTitle.innerText = playlist[currentTrack].title;
     
     if (isPlaying) {
         bgMusic.play().catch(e => console.log('Playback failed:', e));
     }
 }
 
-if (playPauseBtn) {
-    playPauseBtn.addEventListener('click', () => {
-        if (isPlaying) {
-            bgMusic.pause();
-            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-            isPlaying = false;
-        } else {
-            bgMusic.play().catch(e => console.log('Playback failed:', e));
-            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-            isPlaying = true;
-        }
-    });
-}
-
-if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-        loadTrack(currentTrack + 1);
-        if (isPlaying) {
-            bgMusic.play();
-        }
-    });
-}
-
-if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-        loadTrack(currentTrack - 1);
-        if (isPlaying) {
-            bgMusic.play();
-        }
-    });
-}
-
-if (volumeSlider) {
-    volumeSlider.addEventListener('input', (e) => {
-        bgMusic.volume = parseFloat(e.target.value);
-    });
-}
-
-bgMusic.volume = 0.5;
-
-bgMusic.addEventListener('ended', () => {
-    loadTrack(currentTrack + 1);
-    if (isPlaying) {
-        bgMusic.play();
+function initMusicPlayer() {
+    if (playPauseBtn) {
+        playPauseBtn.onclick = () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                isPlaying = false;
+            } else {
+                bgMusic.play().catch(e => console.log('Playback failed:', e));
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                isPlaying = true;
+            }
+        };
     }
-});
-
-loadTrack(0);
-
-// MINIMIZE / EXPAND MUSIC PLAYER
-const musicPlayer = document.getElementById('musicPlayer');
-const minimizeBtn = document.getElementById('minimizeBtn');
-const expandBtn = document.getElementById('expandBtn');
-
-if (minimizeBtn) {
-    minimizeBtn.addEventListener('click', () => {
-        if (musicPlayer) musicPlayer.classList.add('minimized');
-        if (expandBtn) expandBtn.classList.remove('hidden');
-    });
+    
+    if (nextBtn) {
+        nextBtn.onclick = () => {
+            loadTrack(currentTrack + 1);
+            if (isPlaying) bgMusic.play();
+        };
+    }
+    
+    if (prevBtn) {
+        prevBtn.onclick = () => {
+            loadTrack(currentTrack - 1);
+            if (isPlaying) bgMusic.play();
+        };
+    }
+    
+    if (volumeSlider) {
+        volumeSlider.oninput = (e) => {
+            bgMusic.volume = parseFloat(e.target.value);
+        };
+    }
+    
+    bgMusic.volume = 0.5;
+    bgMusic.onended = () => {
+        loadTrack(currentTrack + 1);
+        if (isPlaying) bgMusic.play();
+    };
+    
+    loadTrack(0);
 }
 
-if (expandBtn) {
-    expandBtn.addEventListener('click', () => {
-        if (musicPlayer) musicPlayer.classList.remove('minimized');
-        if (expandBtn) expandBtn.classList.add('hidden');
-    });
+// ==================== MINIMIZE MUSIC PLAYER ====================
+function initMinimizePlayer() {
+    const musicPlayer = document.getElementById('musicPlayer');
+    const minimizeBtn = document.getElementById('minimizeBtn');
+    const expandBtn = document.getElementById('expandBtn');
+    
+    if (minimizeBtn) {
+        minimizeBtn.onclick = () => {
+            if (musicPlayer) musicPlayer.classList.add('minimized');
+            if (expandBtn) expandBtn.classList.remove('hidden');
+        };
+    }
+    
+    if (expandBtn) {
+        expandBtn.onclick = () => {
+            if (musicPlayer) musicPlayer.classList.remove('minimized');
+            if (expandBtn) expandBtn.classList.add('hidden');
+        };
+    }
 }
 
-// MODAL
-const modal = document.getElementById('projectModal');
-if (modal) {
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
+// ==================== MODAL ====================
+function initModal() {
+    const modal = document.getElementById('projectModal');
     const closeBtn = document.querySelector('.modal-close');
     const backBtn = document.querySelector('.modal-back-btn');
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (backBtn) backBtn.addEventListener('click', closeModal);
+    
+    if (modal) {
+        modal.onclick = (e) => {
+            if (e.target === modal) closeModal();
+        };
+    }
+    if (closeBtn) closeBtn.onclick = closeModal;
+    if (backBtn) backBtn.onclick = closeModal;
 }
 
-// START
+// ==================== INIT ALL ====================
+function initAll() {
+    initNavigation();
+    initSkillBar();
+    initProjects();
+    initContacts();
+    initMusicPlayer();
+    initMinimizePlayer();
+    initModal();
+}
+
+// ==================== START ====================
 window.addEventListener('load', () => {
     typeBootText();
 });
