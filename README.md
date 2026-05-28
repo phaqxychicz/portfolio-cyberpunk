@@ -1,6 +1,6 @@
-# 💀 PHAQXY | CYBERPUNK PORTFOLIO
+# 💀 ZAMISKUY | CYBERPUNK PORTFOLIO
 
-Portfolio interaktif bergaya **cyberpunk** dengan 4 slide, music player, dan efek neon.
+Portfolio interaktif bergaya cyberpunk dengan 4 slide, music player, dan efek neon.
 
 <p align="center">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
@@ -10,31 +10,12 @@ Portfolio interaktif bergaya **cyberpunk** dengan 4 slide, music player, dan efe
 
 ---
 
-## 📁 Struktur Folder
-portfolio-phaqxy/
-├── index.html
-├── style.css
-├── script.js
-├── images/
-│ ├── my-photo.jpg
-│ ├── project-1.jpg
-│ ├── project-2.jpg
-│ └── project-3.jpg
-├── assets/
-│ └── music/
-│ ├── music-1.mp3
-│ ├── music-2.mp3
-│ └── music-3.mp3
-└── README.md
-
----
-
 ## 🎮 Fitur
 
 | Fitur | Deskripsi |
 |-------|-----------|
-| 4 Slide Layout | HI I AM PHAQXY → ABOUT ME → SOFTWARE SKILLS → PROJECTS & CONTACT |
-| Music Player | Play/Pause, Next, Prev, Volume control (3 lagu) |
+| 4 Slide Layout | HI I AM ZAMISKUY → ABOUT ME → SOFTWARE SKILLS → PROJECTS & CONTACT |
+| Music Player | Play/Pause, Next, Prev, Volume control, bisa diminimize |
 | Auto Skill Bar | Cukup ubah angka persentase, bar otomatis menyesuaikan |
 | Cyberpunk Visual | Neon cyan/magenta, grid background, scanline, glitch text |
 | Responsive | Support mobile & desktop |
@@ -44,14 +25,10 @@ portfolio-phaqxy/
 
 ## 🚀 Cara Menjalankan
 
-| Langkah | Perintah |
-|---------|----------|
-| 1 | Buat folder `portfolio-phaqxy/` |
-| 2 | Masukkan file `index.html`, `style.css`, `script.js` |
-| 3 | Masukkan foto profil ke `images/my-photo.jpg` |
-| 4 | Masukkan 3 screenshot ke `images/project-1.jpg`, `project-2.jpg`, `project-3.jpg` |
-| 5 | Masukkan 3 file musik ke `assets/music/music-1.mp3`, `music-2.mp3`, `music-3.mp3` |
-| 6 | Buka `index.html` di browser |
+1. Siapkan foto profil dengan nama `my-photo.jpg`
+2. Siapkan 3 screenshot project dengan nama `project-1.jpg`, `project-2.jpg`, `project-3.jpg`
+3. Siapkan 3 file musik dengan nama `music-1.mp3`, `music-2.mp3`, `music-3.mp3`
+4. Buka file `index.html` di browser
 
 ---
 
@@ -61,7 +38,7 @@ portfolio-phaqxy/
 |------|------|--------|
 | Username Instagram | `index.html` | Slide 4, class `contact-item` |
 | Username GitHub | `index.html` | Slide 4, class `contact-item` |
-| Nama di Slide 1 | `index.html` | Ganti `PHAQXY` |
+| Nama di Slide 1 | `index.html` | Ganti `ZAMISKUY` |
 | Bio About Me | `index.html` | Slide 2, class `bio-short` |
 | Teks Testimonial | `index.html` | Slide 2, class `quote-text` |
 | Skill & Persentase | `index.html` | Slide 3, class `skill-percent` |
@@ -76,16 +53,17 @@ portfolio-phaqxy/
 |-------------|------|------|
 | Warna neon utama | `style.css` | `#00f3ff` (cyan) dan `#ff00ff` (magenta) |
 | Teks booting | `script.js` | `bootTexts` |
-| Durasi intro | `script.js` | `setTimeout(..., 4500)` |
-| Kecepatan scanline | `style.css` | `animation: scan 8s` |
+| Durasi intro | `script.js` | `setTimeout(..., 1000)` |
+| Kecepatan ngetik | `script.js` | `setTimeout(typeNextChar, 70)` |
 
 ---
 
 ## 🎵 Music Player
 
 - **Letak:** Pojok kanan atas
+- **Default:** Mode simpel (hanya icon musik)
+- **Klik icon** untuk membuka player lengkap
 - **Fitur:** Play/Pause, Next, Prev, Volume slider
-- **Playlist:** 3 lagu (`music-1.mp3`, `music-2.mp3`, `music-3.mp3`)
 
 ---
 
@@ -105,7 +83,6 @@ MIT License — bebas digunakan, dimodifikasi, dan didistribusikan.
 ---
 
 <p align="center">
-  <b>REX-EYE // PHAQXY</b><br>
+  <b>REX-EYE // phaqxy.jg</b><br>
   <i>Break the grid, own the void.</i>
 </p>
-
