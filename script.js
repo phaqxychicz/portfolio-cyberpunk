@@ -1,4 +1,4 @@
-// BOOT SEQUENCE - EFEK NGETIK LAMBAT + COMPLETE
+// BOOT SEQUENCE - CEPAT + COMPLETE 3 DETIK
 const bootTexts = [
     "> ROG STRIX BIOS v.4012",
     "> Republic of Gamers - Cyberdeck Initiated",
@@ -18,11 +18,10 @@ let currentChar = 0;
 let isComplete = false;
 const bootElement = document.getElementById('bootText');
 const introLayer = document.getElementById('intro-layer');
-let typingSpeed = 80; // ms per karakter
+let typingSpeed = 25; // ms per karakter (lebih cepat)
 
 function typeNextCharacter() {
     if (currentLine >= bootTexts.length) {
-        // Jika sudah selesai semua baris, tampilkan COMPLETE
         if (!isComplete) {
             isComplete = true;
             const completeLine = document.createElement('div');
@@ -30,7 +29,7 @@ function typeNextCharacter() {
             completeLine.innerHTML = '<span style="color: #0f0;">> COMPLETE ✓</span>';
             bootElement.appendChild(completeLine);
             
-            // Tunggu 1 detik, lalu fade out intro
+            // Tunggu 3 detik, lalu fade out intro
             setTimeout(() => {
                 introLayer.style.animation = 'fadeOut 0.5s ease forwards';
                 setTimeout(() => {
@@ -38,7 +37,7 @@ function typeNextCharacter() {
                     document.getElementById('slide1').classList.add('active-slide');
                     updateSlideIndicator(1);
                 }, 500);
-            }, 1000);
+            }, 3000); // 3 detik
         }
         return;
     }
@@ -46,17 +45,14 @@ function typeNextCharacter() {
     const currentText = bootTexts[currentLine];
     
     if (currentChar < currentText.length) {
-        // Tambah satu karakter
         bootElement.innerHTML += currentText[currentChar];
         currentChar++;
         setTimeout(typeNextCharacter, typingSpeed);
     } else {
-        // Pindah ke baris berikutnya
         bootElement.innerHTML += '<br>';
         currentLine++;
         currentChar = 0;
-        // Jeda antar baris (150ms)
-        setTimeout(typeNextCharacter, 150);
+        setTimeout(typeNextCharacter, 50); // jeda antar baris sangat cepat
     }
 }
 
