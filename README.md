@@ -1,4 +1,4 @@
-# 💀 ZAMISKUY | CYBERPUNK PORTFOLIO
+# 💀 ZAMISKUY PORTFOLIO
 
 Portfolio interaktif bergaya cyberpunk dengan 4 slide, music player, dan efek neon.
 
