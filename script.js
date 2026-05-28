@@ -1,64 +1,36 @@
-// BOOT SEQUENCE - TEPAT 7 DETIK (TEKS PENDEK)
+// BOOT SEQUENCE - NORMAL (KAYAK AWAL)
 const bootTexts = [
     "> ROG STRIX BIOS v.4012",
-    "> Loading profile: zamiyskuy",
+    "> Republic of Gamers - Cyberdeck Initiated",
     "> Scanning neural link... OK",
-    "> Loading modules... DONE",
-    "> Establishing connection... OK",
-    "> Rendering cyberpunk... DONE",
-    "> All systems ready."
+    "> Loading user profile: PHAQXY ... OK",
+    "> Entering the void..."
 ];
 
-let currentLine = 0;
-let currentChar = 0;
-let isComplete = false;
+let bootIndex = 0;
 const bootElement = document.getElementById('bootText');
 const introLayer = document.getElementById('intro-layer');
 
-// Kecepatan per karakter (ms)
-const typingSpeed = 60;
-// Jeda antar baris (ms)
-const delayBetweenLines = 180;
-
-function typeNextCharacter() {
-    if (currentLine >= bootTexts.length) {
-        if (!isComplete) {
-            isComplete = true;
-            const completeLine = document.createElement('div');
-            completeLine.className = 'boot-complete';
-            completeLine.innerHTML = '<span style="color: #0f0;">> COMPLETE ✓</span>';
-            bootElement.appendChild(completeLine);
-            
-            // Tunggu 1.5 detik sebelum pindah
-            setTimeout(() => {
-                introLayer.style.animation = 'fadeOut 0.5s ease forwards';
-                setTimeout(() => {
-                    introLayer.style.display = 'none';
-                    document.getElementById('slide1').classList.add('active-slide');
-                    updateSlideIndicator(1);
-                }, 500);
-            }, 1500);
-        }
-        return;
-    }
-    
-    const currentText = bootTexts[currentLine];
-    
-    if (currentChar < currentText.length) {
-        bootElement.innerHTML += currentText[currentChar];
-        currentChar++;
-        setTimeout(typeNextCharacter, typingSpeed);
+function typeBootText() {
+    if (bootIndex < bootTexts.length) {
+        bootElement.innerHTML += bootTexts[bootIndex] + '<br>';
+        bootIndex++;
+        setTimeout(typeBootText, 500);
     } else {
-        bootElement.innerHTML += '<br>';
-        currentLine++;
-        currentChar = 0;
-        setTimeout(typeNextCharacter, delayBetweenLines);
+        // Setelah selesai ngetik, tunggu 1 detik lalu fade out
+        setTimeout(() => {
+            introLayer.style.animation = 'fadeOut 0.5s ease forwards';
+            setTimeout(() => {
+                introLayer.style.display = 'none';
+                document.getElementById('slide1').classList.add('active-slide');
+                updateSlideIndicator(1);
+            }, 500);
+        }, 1000);
     }
 }
 
-// Mulai efek ngetik saat halaman load
 window.addEventListener('load', () => {
-    typeNextCharacter();
+    typeBootText();
 });
 
 // SLIDE NAVIGATION
