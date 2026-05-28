@@ -1,68 +1,51 @@
-// ==================== BOOT SEQUENCE WITH TYPING ANIMATION ====================
+// ==================== BOOT SEQUENCE - VERSION MENTAH (PASTI JALAN) ====================
 const bootTexts = [
-    "> ROG STRIX BIOS v.4012",
-    "> Republic of Gamers - Cyberdeck Initiated",
-    "> Scanning neural link... OK",
-    "> Loading user profile: ZAMZAMI ... OK",
-    "> Entering the void...",
-    "> Load System ...",
-    "> ...[ COMPLETE ]..."
+    "> ROG STRIX BIOS v.4012<br>",
+    "> Republic of Gamers - Cyberdeck Initiated<br>",
+    "> Scanning neural link... OK<br>",
+    "> Loading user profile: ZAMZAMI ... OK<br>",
+    "> Entering the void...<br>",
+    "> Load System ...<br>",
+    "> ...[ COMPLETE ]...<br>"
 ];
 
-let currentLine = 0;
-let currentChar = 0;
-let bootFinished = false;
 const bootElement = document.getElementById('bootText');
 const introLayer = document.getElementById('intro-layer');
+let lineIndex = 0;
 
-// Kecepatan ngetik per karakter (ms)
-const typingSpeed = 80;
-// Jeda antar baris (ms)
-const delayBetweenLines = 200;
-
-function typeNextCharacter() {
-    // Jika semua baris sudah selesai
-    if (currentLine >= bootTexts.length) {
-        if (!bootFinished) {
-            bootFinished = true;
-            // Tunggu 1 detik, lalu fade out
-            setTimeout(() => {
-                introLayer.style.animation = 'fadeOut 0.5s ease forwards';
-                setTimeout(() => {
-                    introLayer.style.display = 'none';
-                    document.getElementById('slide1').classList.add('active-slide');
-                    updateSlideIndicator(1);
-                    
-                    // Panggil semua fungsi setelah slide muncul
-                    initNavigation();
-                    initSkillBar();
-                    initProjects();
-                    initContacts();
-                    initMusicPlayer();
-                    initMinimizePlayer();
-                    initModal();
-                }, 500);
-            }, 1000);
-        }
-        return;
-    }
-    
-    const currentText = bootTexts[currentLine];
-    
-    if (currentChar < currentText.length) {
-        // Tambah satu karakter
-        bootElement.innerHTML += currentText[currentChar];
-        currentChar++;
-        setTimeout(typeNextCharacter, typingSpeed);
+function showNextLine() {
+    if (lineIndex < bootTexts.length) {
+        bootElement.innerHTML += bootTexts[lineIndex];
+        lineIndex++;
+        setTimeout(showNextLine, 300); // setiap 300ms muncul 1 baris
     } else {
-        // Pindah ke baris berikutnya
-        bootElement.innerHTML += '<br>';
-        currentLine++;
-        currentChar = 0;
-        setTimeout(typeNextCharacter, delayBetweenLines);
+        // Selesai semua baris, tunggu 1 detik lalu sembunyikan intro
+        setTimeout(() => {
+            introLayer.style.opacity = '0';
+            introLayer.style.transition = 'opacity 0.5s';
+            setTimeout(() => {
+                introLayer.style.display = 'none';
+                document.getElementById('slide1').classList.add('active-slide');
+                updateSlideIndicator(1);
+                
+                // Panggil semua fungsi
+                initNavigation();
+                initSkillBar();
+                initProjects();
+                initContacts();
+                initMusicPlayer();
+                initMinimizePlayer();
+                initModal();
+            }, 500);
+        }, 1000);
     }
 }
 
+// Mulai
+window.addEventListener('load', () => {
+    bootElement.innerHTML = '';
+    showNextLine();
+});
 // ==================== SLIDE NAVIGATION ====================
 let currentSlide = 1;
 const totalSlides = 4;
