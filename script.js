@@ -161,9 +161,9 @@ function initContactButtons() {
 
 // MUSIC PLAYER - PLAYLIST 3 LAGU
 const playlist = [
-    { src: "assets/music/music-1.mp3", title: "music-1.mp3" },
-    { src: "assets/music/music-2.mp3", title: "music-2.mp3" },
-    { src: "assets/music/music-3.mp3", title: "music-3.mp3" }
+    { src: "assets/music/music-1.mp3", title: "Dandelions" },
+    { src: "assets/music/music-2.mp3", title: "Gak Pake Lama" },
+    { src: "assets/music/music-3.mp3", title: "Ophelia" }
 ];
 
 let currentTrack = 0;
