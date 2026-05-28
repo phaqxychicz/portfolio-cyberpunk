@@ -18,27 +18,37 @@
     </div>
 </div>
 
-<!-- MUSIC PLAYER BAR - POJOK KANAN ATAS -->
-<div class="music-player">
-    <div class="player-container">
-        <button id="prevBtn" class="nav-btn">
-            <i class="fas fa-backward-step"></i>
-        </button>
-        <button id="playPauseBtn" class="play-btn">
-            <i class="fas fa-play"></i>
-        </button>
-        <button id="nextBtn" class="nav-btn">
-            <i class="fas fa-forward-step"></i>
-        </button>
-        <div class="track-info">
-            <span class="track-title" id="trackTitle">music-1.mp3</span>
-            <span class="track-artist">Now Playing</span>
-        </div>
-        <div class="volume-control">
-            <i class="fas fa-volume-up"></i>
-            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+<!-- MUSIC PLAYER BAR - BISA MINIMIZE -->
+<div class="music-player-wrapper">
+    <div class="music-player minimized" id="musicPlayer">
+        <div class="player-container">
+            <button id="prevBtn" class="nav-btn">
+                <i class="fas fa-backward-step"></i>
+            </button>
+            <button id="playPauseBtn" class="play-btn">
+                <i class="fas fa-play"></i>
+            </button>
+            <button id="nextBtn" class="nav-btn">
+                <i class="fas fa-forward-step"></i>
+            </button>
+            <div class="track-info">
+                <span class="track-title" id="trackTitle">music-1.mp3</span>
+                <span class="track-artist">Now Playing</span>
+            </div>
+            <div class="volume-control">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+            </div>
+            <button id="minimizeBtn" class="minimize-btn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
     </div>
+    
+    <!-- Tombol kecil saat di-minimize -->
+    <button id="expandBtn" class="expand-btn hidden">
+        <i class="fas fa-music"></i>
+    </button>
 </div>
 
 <audio id="bgMusic" preload="auto"></audio>
