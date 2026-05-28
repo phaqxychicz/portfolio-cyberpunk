@@ -1,9 +1,9 @@
-// BOOT SEQUENCE - CEPAT + COMPLETE 3 DETIK
+// BOOT SEQUENCE - CEPAT + COMPLETE 6 DETIK
 const bootTexts = [
     "> ROG STRIX BIOS v.4012",
     "> Republic of Gamers - Cyberdeck Initiated",
     "> Scanning neural link... OK",
-    "> Loading user profile: PHAQXY ... OK",
+    "> Loading user profile: zamiiny_28 ... OK",
     "> Checking system integrity...",
     "> Loading cyberpunk modules...",
     "> Establishing secure connection...",
@@ -29,7 +29,7 @@ function typeNextCharacter() {
             completeLine.innerHTML = '<span style="color: #0f0;">> COMPLETE ✓</span>';
             bootElement.appendChild(completeLine);
             
-            // Tunggu 3 detik, lalu fade out intro
+            // Tunggu 6 detik, lalu fade out intro
             setTimeout(() => {
                 introLayer.style.animation = 'fadeOut 0.5s ease forwards';
                 setTimeout(() => {
@@ -37,7 +37,7 @@ function typeNextCharacter() {
                     document.getElementById('slide1').classList.add('active-slide');
                     updateSlideIndicator(1);
                 }, 500);
-            }, 3000); // 3 detik
+            }, 6000); // 6 detik
         }
         return;
     }
