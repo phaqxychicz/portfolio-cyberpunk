@@ -3,7 +3,7 @@ const bootTexts = [
     "> ROG STRIX BIOS v.4012",
     "> Republic of Gamers - Cyberdeck Initiated",
     "> Scanning neural link... OK",
-    "> Loading user profile: PHAQXY ... OK",
+    "> Loading user profile: zamiiny_28 ... OK",
     "> Entering the void..."
 ];
 
