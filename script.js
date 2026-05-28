@@ -1,0 +1,231 @@
+// BOOT SEQUENCE (TANPA SUARA)
+const bootTexts = [
+    "> ROG STRIX BIOS v.4012",
+    "> Republic of Gamers - Cyberdeck Initiated",
+    "> Scanning neural link... OK",
+    "> Loading user profile: PHAQXY ... OK",
+    "> Entering the void..."
+];
+
+let bootIndex = 0;
+const bootElement = document.getElementById('bootText');
+const introLayer = document.getElementById('intro-layer');
+let currentSlide = 1;
+const totalSlides = 4;
+
+function typeBootText() {
+    if (bootIndex < bootTexts.length) {
+        bootElement.innerHTML += bootTexts[bootIndex] + '<br>';
+        bootIndex++;
+        setTimeout(typeBootText, 500);
+    }
+}
+
+window.addEventListener('load', () => {
+    typeBootText();
+    
+    setTimeout(() => {
+        introLayer.style.display = 'none';
+        document.getElementById('slide1').classList.add('active-slide');
+        updateSlideIndicator(1);
+    }, 4500);
+});
+
+// SLIDE NAVIGATION
+function showSlide(slideNumber) {
+    if (slideNumber < 1 || slideNumber > totalSlides) return;
+    
+    for (let i = 1; i <= totalSlides; i++) {
+        const slide = document.getElementById(`slide${i}`);
+        if (slide) slide.classList.remove('active-slide');
+    }
+    
+    const targetSlide = document.getElementById(`slide${slideNumber}`);
+    if (targetSlide) targetSlide.classList.add('active-slide');
+    currentSlide = slideNumber;
+    updateSlideIndicator(slideNumber);
+}
+
+function updateSlideIndicator(slideNumber) {
+    const dots = document.querySelectorAll(`.slide-indicator .dot`);
+    dots.forEach((dot, idx) => {
+        if (idx + 1 === slideNumber) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+function attachNavListeners() {
+    document.querySelectorAll('.next-slide-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const next = btn.getAttribute('data-next');
+            if (next) showSlide(parseInt(next));
+        });
+    });
+    
+    document.querySelectorAll('.prev-slide-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const prev = btn.getAttribute('data-prev');
+            if (prev) showSlide(parseInt(prev));
+        });
+    });
+}
+
+// PROJECTS DATA
+const projectsData = [
+    {
+        title: "Cyberpunk Poster Series",
+        image: "images/project-1.jpg",
+        desc: "Seri poster bertema cyberpunk dengan kombinasi neon dan glitch effect.",
+        tech: "PixelLab, CorelDraw"
+    },
+    {
+        title: "Brand Identity Project",
+        image: "images/project-2.jpg",
+        desc: "Desain identitas merek dengan sentuhan retro-futuristik.",
+        tech: "Canva, CorelDraw"
+    },
+    {
+        title: "Social Media Campaign",
+        image: "images/project-3.jpg",
+        desc: "Kampanye media sosial dengan visual berani dan tipografi eksperimental.",
+        tech: "Canva, PixelLab"
+    }
+];
+
+function initProjects() {
+    const grid = document.getElementById('projectsGrid');
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+    
+    projectsData.forEach((project) => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+            <img src="${project.image}" alt="${project.title}" onerror="this.src='https://placehold.co/400x200/0a0a0f/00f3ff?text=No+Image'">
+            <h4>${project.title}</h4>
+            <p>${project.desc.substring(0, 55)}...</p>
+        `;
+        card.addEventListener('click', () => openModal(project));
+        grid.appendChild(card);
+    });
+}
+
+function openModal(project) {
+    const modal = document.getElementById('projectModal');
+    document.getElementById('modalTitle').textContent = project.title;
+    document.getElementById('modalImage').src = project.image;
+    document.getElementById('modalDesc').textContent = project.desc;
+    document.getElementById('modalTech').innerHTML = `<strong>Tech:</strong> ${project.tech}`;
+    modal.classList.remove('hidden');
+}
+
+function closeModal() {
+    document.getElementById('projectModal').classList.add('hidden');
+}
+
+// CONTACT BUTTONS (IG + GITHUB)
+function initContactButtons() {
+    const contactItems = document.querySelectorAll('.contact-item');
+    
+    contactItems.forEach(item => {
+        const btn = item.querySelector('.contact-btn');
+        const type = item.getAttribute('data-type');
+        const span = item.querySelector('span');
+        const value = span.textContent;
+        
+        btn.addEventListener('click', () => {
+            let url = '';
+            if (type === 'instagram') url = `https://instagram.com/${value.replace('@', '')}`;
+            if (type === 'github') url = `https://github.com/${value.replace('@', '')}`;
+            if (url) window.open(url, '_blank');
+        });
+    });
+}
+
+// MUSIC PLAYER - PLAYLIST 3 LAGU
+const playlist = [
+    { src: "assets/music/music-1.mp3", title: "music-1.mp3" },
+    { src: "assets/music/music-2.mp3", title: "music-2.mp3" },
+    { src: "assets/music/music-3.mp3", title: "music-3.mp3" }
+];
+
+let currentTrack = 0;
+let isPlaying = false;
+
+const bgMusic = document.getElementById('bgMusic');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+const trackTitle = document.getElementById('trackTitle');
+
+function loadTrack(index) {
+    if (index < 0) index = playlist.length - 1;
+    if (index >= playlist.length) index = 0;
+    currentTrack = index;
+    bgMusic.src = playlist[currentTrack].src;
+    trackTitle.textContent = playlist[currentTrack].title;
+    
+    if (isPlaying) {
+        bgMusic.play().catch(e => console.log('Playback failed:', e));
+    }
+}
+
+playPauseBtn.addEventListener('click', () => {
+    if (isPlaying) {
+        bgMusic.pause();
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        isPlaying = false;
+    } else {
+        bgMusic.play().catch(e => console.log('Playback failed:', e));
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        isPlaying = true;
+    }
+});
+
+nextBtn.addEventListener('click', () => {
+    loadTrack(currentTrack + 1);
+    if (isPlaying) {
+        bgMusic.play();
+    }
+});
+
+prevBtn.addEventListener('click', () => {
+    loadTrack(currentTrack - 1);
+    if (isPlaying) {
+        bgMusic.play();
+    }
+});
+
+volumeSlider.addEventListener('input', (e) => {
+    bgMusic.volume = parseFloat(e.target.value);
+});
+
+bgMusic.volume = 0.5;
+
+bgMusic.addEventListener('ended', () => {
+    loadTrack(currentTrack + 1);
+    if (isPlaying) {
+        bgMusic.play();
+    }
+});
+
+loadTrack(0);
+
+// INIT ALL
+document.addEventListener('DOMContentLoaded', () => {
+    attachNavListeners();
+    initProjects();
+    initContactButtons();
+    
+    const modal = document.getElementById('projectModal');
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.querySelector('.modal-close')?.addEventListener('click', closeModal);
+    document.querySelector('.modal-back-btn')?.addEventListener('click', closeModal);
+});

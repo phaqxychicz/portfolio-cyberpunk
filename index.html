@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Phaqxy | Cyberpunk Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- INTRO BOOTING (ROG STYLE - TANPA SUARA) -->
+<div id="intro-layer" class="intro-layer">
+    <div class="boot-screen">
+        <div class="boot-text" id="bootText"></div>
+        <div class="boot-cursor">_</div>
+    </div>
+</div>
+
+<!-- MUSIC PLAYER BAR - POJOK KANAN ATAS -->
+<div class="music-player">
+    <div class="player-container">
+        <button id="prevBtn" class="nav-btn">
+            <i class="fas fa-backward-step"></i>
+        </button>
+        <button id="playPauseBtn" class="play-btn">
+            <i class="fas fa-play"></i>
+        </button>
+        <button id="nextBtn" class="nav-btn">
+            <i class="fas fa-forward-step"></i>
+        </button>
+        <div class="track-info">
+            <span class="track-title" id="trackTitle">music-1.mp3</span>
+            <span class="track-artist">Now Playing</span>
+        </div>
+        <div class="volume-control">
+            <i class="fas fa-volume-up"></i>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+        </div>
+    </div>
+</div>
+
+<audio id="bgMusic" preload="auto"></audio>
+
+<!-- SLIDE 1: HI I AM PHAQXY -->
+<div id="slide1" class="slide active-slide">
+    <div class="cyber-grid"></div>
+    <div class="scanline"></div>
+    <div class="glitch-overlay"></div>
+    
+    <div class="slide-container">
+        <div class="break-number">01</div>
+        <div class="break-title">HI I AM PHAQXY</div>
+        <div class="break-line"></div>
+        
+        <div class="photo-frame">
+            <div class="frame-border">
+                <img src="images/my-photo.jpg" alt="Phaqxy">
+            </div>
+        </div>
+        
+        <h1 class="glitch-text" data-text="PHAQXY">PHAQXY</h1>
+        <p class="tagline">Visual Shadowrunner | Cyberpunk Designer</p>
+        
+        <button class="next-slide-btn" data-next="2">
+            <span>→ ENTER</span>
+        </button>
+        
+        <div class="slide-indicator">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2: ABOUT ME -->
+<div id="slide2" class="slide">
+    <div class="cyber-grid"></div>
+    <div class="scanline"></div>
+    
+    <div class="slide-container">
+        <div class="break-number">02</div>
+        <div class="break-title">ABOUT ME</div>
+        <div class="break-line"></div>
+        
+        <div class="testimonial-box">
+            <div class="quote-mark">"</div>
+            <div class="quote-text">
+                Take it from me, kid.<br>
+                sometimes it's okay to run.<br>
+                You run as fast as you damn well can.
+            </div>
+            <div class="quote-author">— Anonymous Shadowrunner</div>
+        </div>
+        
+        <div class="profile-mini">
+            <div class="profile-mini-photo">
+                <img src="images/my-photo.jpg" alt="Phaqxy">
+            </div>
+            <div class="profile-mini-info">
+                <h3>PHAQXY</h3>
+                <p>Visual Designer & Creative Hacker</p>
+                <div class="bio-short">
+                    💀 Breaking visual boundaries since 2020.<br>
+                    Chaos is my canvas, neon is my color.
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="prev-slide-btn" data-prev="1">← BACK</button>
+            <button class="next-slide-btn" data-next="3">NEXT →</button>
+        </div>
+        
+        <div class="slide-indicator">
+            <span class="dot"></span>
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3: SOFTWARE SKILLS -->
+<div id="slide3" class="slide">
+    <div class="cyber-grid"></div>
+    <div class="scanline"></div>
+    
+    <div class="slide-container">
+        <div class="break-number">03</div>
+        <div class="break-title">SOFTWARE SKILLS</div>
+        <div class="break-line"></div>
+        
+        <div class="skills-container">
+            <div class="skill-card">
+                <div class="skill-header">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>PixelLab</span>
+                    <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar-fill" style="width: 90%"></div>
+                </div>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-header">
+                    <i class="fas fa-palette"></i>
+                    <span>Canva</span>
+                    <span class="skill-percent">85%</span>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar-fill" style="width: 85%"></div>
+                </div>
+            </div>
+            
+            <div class="skill-card">
+                <div class="skill-header">
+                    <i class="fas fa-vector-square"></i>
+                    <span>CorelDraw</span>
+                    <span class="skill-percent">70%</span>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar-fill" style="width: 70%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="prev-slide-btn" data-prev="2">← BACK</button>
+            <button class="next-slide-btn" data-next="4">NEXT →</button>
+        </div>
+        
+        <div class="slide-indicator">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot active"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 4: PROJECTS & CONTACT -->
+<div id="slide4" class="slide">
+    <div class="cyber-grid"></div>
+    <div class="scanline"></div>
+    
+    <div class="slide-container">
+        <div class="break-number">04</div>
+        <div class="break-title">PROJECTS & CONTACT</div>
+        <div class="break-line"></div>
+        
+        <div class="final-layout">
+            <div class="projects-section">
+                <div class="section-header">
+                    <i class="fas fa-folder-open"></i> PROJECT ARCHIVE
+                </div>
+                <div class="projects-grid" id="projectsGrid"></div>
+            </div>
+            
+            <div class="contact-section">
+                <div class="section-header">
+                    <i class="fas fa-address-card"></i> CONTACT
+                </div>
+                <div class="contact-list">
+                    <div class="contact-item" data-type="instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>@phaqxy.jpg</span>
+                        <button class="contact-btn">→</button>
+                    </div>
+                    <div class="contact-item" data-type="github">
+                        <i class="fab fa-github"></i>
+                        <span>@phaqxychicz</span>
+                        <button class="contact-btn">→</button>
+                    </div>
+                </div>
+                <div class="cyber-signature">
+                    <span>REX-EYE // PHAQXY</span>
+                    <span>v.4012</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="prev-slide-btn" data-prev="3">← BACK</button>
+        </div>
+        
+        <div class="slide-indicator">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot active"></span>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PROJECT DETAIL -->
+<div id="projectModal" class="modal hidden">
+    <div class="modal-content cyber-modal">
+        <div class="modal-header">
+            <h3 id="modalTitle"></h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <img id="modalImage" src="" alt="">
+            <p id="modalDesc"></p>
+            <div id="modalTech"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-back-btn">◀ CLOSE</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
