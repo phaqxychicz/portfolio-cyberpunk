@@ -243,3 +243,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.modal-close')?.addEventListener('click', closeModal);
     document.querySelector('.modal-back-btn')?.addEventListener('click', closeModal);
 });
+
+// MINIMIZE / EXPAND MUSIC PLAYER
+const musicPlayer = document.getElementById('musicPlayer');
+const minimizeBtn = document.getElementById('minimizeBtn');
+const expandBtn = document.getElementById('expandBtn');
+
+// Minimize player
+minimizeBtn.addEventListener('click', () => {
+    musicPlayer.classList.add('minimized');
+    expandBtn.classList.remove('hidden');
+});
+
+// Expand player
+expandBtn.addEventListener('click', () => {
+    musicPlayer.classList.remove('minimized');
+    expandBtn.classList.add('hidden');
+});
