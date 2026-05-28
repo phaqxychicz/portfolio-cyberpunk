@@ -1,10 +1,11 @@
-// BOOT SEQUENCE - NORMAL (KAYAK AWAL)
+// BOOT SEQUENCE - NORMAL
 const bootTexts = [
     "> ROG STRIX BIOS v.4012",
     "> Republic of Gamers - Cyberdeck Initiated",
     "> Scanning neural link... OK",
-    "> Loading user profile: PHAQXY ... OK",
+    "> Loading user profile: zamzami ... OK",
     "> Entering the void..."
+    "> plenger man...
 ];
 
 let bootIndex = 0;
@@ -17,23 +18,27 @@ function typeBootText() {
         bootIndex++;
         setTimeout(typeBootText, 500);
     } else {
-        // Setelah selesai ngetik, tunggu 1 detik lalu fade out
         setTimeout(() => {
             introLayer.style.animation = 'fadeOut 0.5s ease forwards';
             setTimeout(() => {
                 introLayer.style.display = 'none';
                 document.getElementById('slide1').classList.add('active-slide');
                 updateSlideIndicator(1);
+                
+                // 🔥 PASTIKAN NAVIGASI DIPANGGIL SETELAH SLIDE MUNCUL
+                attachNavListeners();
+                autoSkillBar();
+                initProjects();
+                initContactButtons();
             }, 500);
         }, 1000);
     }
 }
 
-window.addEventListener('load', () => {
-    typeBootText();
-});
-
 // SLIDE NAVIGATION
+let currentSlide = 1;
+const totalSlides = 4;
+
 function showSlide(slideNumber) {
     if (slideNumber < 1 || slideNumber > totalSlides) return;
     
@@ -60,29 +65,39 @@ function updateSlideIndicator(slideNumber) {
 }
 
 function attachNavListeners() {
+    console.log("Attaching navigation listeners...");
+    
+    // Tombol NEXT
     document.querySelectorAll('.next-slide-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const next = btn.getAttribute('data-next');
-            if (next) showSlide(parseInt(next));
-        });
+        btn.removeEventListener('click', handleNextClick);
+        btn.addEventListener('click', handleNextClick);
     });
     
+    // Tombol PREV
     document.querySelectorAll('.prev-slide-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const prev = btn.getAttribute('data-prev');
-            if (prev) showSlide(parseInt(prev));
-        });
+        btn.removeEventListener('click', handlePrevClick);
+        btn.addEventListener('click', handlePrevClick);
     });
 }
 
-// AUTO SKILL BAR - OTOMATIS SESUAI PERSENTASE
+function handleNextClick(e) {
+    const next = e.currentTarget.getAttribute('data-next');
+    if (next) showSlide(parseInt(next));
+}
+
+function handlePrevClick(e) {
+    const prev = e.currentTarget.getAttribute('data-prev');
+    if (prev) showSlide(parseInt(prev));
+}
+
+// AUTO SKILL BAR
 function autoSkillBar() {
     const skillCards = document.querySelectorAll('.skill-card');
     skillCards.forEach(card => {
-        const percentText = card.querySelector('.skill-percent').textContent;
+        const percentText = card.querySelector('.skill-percent')?.textContent;
         const percent = parseInt(percentText);
         const barFill = card.querySelector('.skill-bar-fill');
-        if (barFill) {
+        if (barFill && percent) {
             barFill.style.width = percent + '%';
         }
     });
@@ -142,7 +157,7 @@ function closeModal() {
     document.getElementById('projectModal').classList.add('hidden');
 }
 
-// CONTACT BUTTONS (IG + GITHUB)
+// CONTACT BUTTONS
 function initContactButtons() {
     const contactItems = document.querySelectorAll('.contact-item');
     
@@ -152,16 +167,20 @@ function initContactButtons() {
         const span = item.querySelector('span');
         const value = span.textContent;
         
-        btn.addEventListener('click', () => {
-            let url = '';
-            if (type === 'instagram') url = `https://instagram.com/${value.replace('@', '')}`;
-            if (type === 'github') url = `https://github.com/${value.replace('@', '')}`;
-            if (url) window.open(url, '_blank');
-        });
+        // Hapus listener lama biar tidak dobel
+        btn.removeEventListener('click', handleContactClick);
+        btn.addEventListener('click', () => handleContactClick(type, value));
     });
 }
 
-// MUSIC PLAYER - PLAYLIST 3 LAGU
+function handleContactClick(type, value) {
+    let url = '';
+    if (type === 'instagram') url = `https://instagram.com/${value.replace('@', '')}`;
+    if (type === 'github') url = `https://github.com/${value.replace('@', '')}`;
+    if (url) window.open(url, '_blank');
+}
+
+// MUSIC PLAYER
 const playlist = [
     { src: "assets/music/music-1.mp3", title: "Dandelions" },
     { src: "assets/music/music-2.mp3", title: "Gak Pake Lama" },
@@ -190,35 +209,43 @@ function loadTrack(index) {
     }
 }
 
-playPauseBtn.addEventListener('click', () => {
-    if (isPlaying) {
-        bgMusic.pause();
-        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-        isPlaying = false;
-    } else {
-        bgMusic.play().catch(e => console.log('Playback failed:', e));
-        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-        isPlaying = true;
-    }
-});
+if (playPauseBtn) {
+    playPauseBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            bgMusic.pause();
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            isPlaying = false;
+        } else {
+            bgMusic.play().catch(e => console.log('Playback failed:', e));
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            isPlaying = true;
+        }
+    });
+}
 
-nextBtn.addEventListener('click', () => {
-    loadTrack(currentTrack + 1);
-    if (isPlaying) {
-        bgMusic.play();
-    }
-});
+if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+        loadTrack(currentTrack + 1);
+        if (isPlaying) {
+            bgMusic.play();
+        }
+    });
+}
 
-prevBtn.addEventListener('click', () => {
-    loadTrack(currentTrack - 1);
-    if (isPlaying) {
-        bgMusic.play();
-    }
-});
+if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+        loadTrack(currentTrack - 1);
+        if (isPlaying) {
+            bgMusic.play();
+        }
+    });
+}
 
-volumeSlider.addEventListener('input', (e) => {
-    bgMusic.volume = parseFloat(e.target.value);
-});
+if (volumeSlider) {
+    volumeSlider.addEventListener('input', (e) => {
+        bgMusic.volume = parseFloat(e.target.value);
+    });
+}
 
 bgMusic.volume = 0.5;
 
@@ -231,34 +258,38 @@ bgMusic.addEventListener('ended', () => {
 
 loadTrack(0);
 
-// INIT ALL
-document.addEventListener('DOMContentLoaded', () => {
-    attachNavListeners();
-    autoSkillBar();
-    initProjects();
-    initContactButtons();
-    
-    const modal = document.getElementById('projectModal');
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-    document.querySelector('.modal-close')?.addEventListener('click', closeModal);
-    document.querySelector('.modal-back-btn')?.addEventListener('click', closeModal);
-});
-
 // MINIMIZE / EXPAND MUSIC PLAYER
 const musicPlayer = document.getElementById('musicPlayer');
 const minimizeBtn = document.getElementById('minimizeBtn');
 const expandBtn = document.getElementById('expandBtn');
 
-// Minimize player
-minimizeBtn.addEventListener('click', () => {
-    musicPlayer.classList.add('minimized');
-    expandBtn.classList.remove('hidden');
-});
+if (minimizeBtn) {
+    minimizeBtn.addEventListener('click', () => {
+        if (musicPlayer) musicPlayer.classList.add('minimized');
+        if (expandBtn) expandBtn.classList.remove('hidden');
+    });
+}
 
-// Expand player
-expandBtn.addEventListener('click', () => {
-    musicPlayer.classList.remove('minimized');
-    expandBtn.classList.add('hidden');
+if (expandBtn) {
+    expandBtn.addEventListener('click', () => {
+        if (musicPlayer) musicPlayer.classList.remove('minimized');
+        if (expandBtn) expandBtn.classList.add('hidden');
+    });
+}
+
+// MODAL
+const modal = document.getElementById('projectModal');
+if (modal) {
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    const closeBtn = document.querySelector('.modal-close');
+    const backBtn = document.querySelector('.modal-back-btn');
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (backBtn) backBtn.addEventListener('click', closeModal);
+}
+
+// START
+window.addEventListener('load', () => {
+    typeBootText();
 });
