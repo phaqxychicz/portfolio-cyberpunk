@@ -1,27 +1,25 @@
-// ==================== BOOT SEQUENCE - ANIMASI NGETIK (PASTI JALAN) ====================
+// ==================== BOOT SEQUENCE - ANIMASI NGETIK ====================
 const bootTexts = [
     "> ROG STRIX BIOS v.4012",
     "> Republic of Gamers - Cyberdeck Initiated",
     "> Scanning neural link... OK",
-    "> Loading user profile: ZAMZAMI ... OK",
+    "> Loading user profile: ZAMISKUY ... OK",
     "> Entering the void...",
     "> Load System ...",
     "> ...[ COMPLETE ]..."
 ];
 
-let currentTextIndex = 0;      // baris ke berapa
-let currentCharIndex = 0;      // huruf ke berapa
-let isComplete = false;
+let currentTextIndex = 0;
+let currentCharIndex = 0;
+let bootFinished = false;
 
 const bootElement = document.getElementById('bootText');
 const introLayer = document.getElementById('intro-layer');
 
 function typeNextChar() {
-    // Jika semua baris sudah selesai
     if (currentTextIndex >= bootTexts.length) {
-        if (!isComplete) {
-            isComplete = true;
-            // Tunggu 1 detik, lalu fade out
+        if (!bootFinished) {
+            bootFinished = true;
             setTimeout(() => {
                 introLayer.style.transition = 'opacity 0.5s';
                 introLayer.style.opacity = '0';
@@ -30,7 +28,6 @@ function typeNextChar() {
                     document.getElementById('slide1').classList.add('active-slide');
                     updateSlideIndicator(1);
                     
-                    // Panggil semua fungsi
                     initNavigation();
                     initSkillBar();
                     initProjects();
@@ -38,6 +35,7 @@ function typeNextChar() {
                     initMusicPlayer();
                     initMinimizePlayer();
                     initModal();
+                    updateMetaTags();
                 }, 500);
             }, 1000);
         }
@@ -46,26 +44,37 @@ function typeNextChar() {
     
     const currentLine = bootTexts[currentTextIndex];
     
-    // Jika masih ada huruf dalam baris ini
     if (currentCharIndex < currentLine.length) {
         bootElement.innerHTML += currentLine[currentCharIndex];
         currentCharIndex++;
-        setTimeout(typeNextChar, 70); // kecepatan ngetik per karakter
-    } 
-    // Pindah ke baris berikutnya
-    else {
+        setTimeout(typeNextChar, 70);
+    } else {
         bootElement.innerHTML += '<br>';
         currentTextIndex++;
         currentCharIndex = 0;
-        setTimeout(typeNextChar, 150); // jeda antar baris
+        setTimeout(typeNextChar, 150);
     }
 }
 
-// Mulai animasi saat halaman load
-window.addEventListener('DOMContentLoaded', () => {
-    bootElement.innerHTML = ''; // kosongkan dulu
-    typeNextChar();
-});
+// ==================== AUTO UPDATE META TAG ====================
+function updateMetaTags() {
+    const currentUrl = window.location.href;
+    const pageTitle = document.title;
+    const currentDomain = window.location.origin;
+    
+    const ogTitle = document.getElementById('ogTitle');
+    const ogUrl = document.getElementById('ogUrl');
+    const twitterTitle = document.getElementById('twitterTitle');
+    const ogImage = document.getElementById('ogImage');
+    const twitterImage = document.getElementById('twitterImage');
+    
+    if (ogTitle) ogTitle.setAttribute('content', pageTitle);
+    if (ogUrl) ogUrl.setAttribute('content', currentUrl);
+    if (twitterTitle) twitterTitle.setAttribute('content', pageTitle);
+    if (ogImage) ogImage.setAttribute('content', currentDomain + '/images/og-image.jpg');
+    if (twitterImage) twitterImage.setAttribute('content', currentDomain + '/images/og-image.jpg');
+}
+
 // ==================== SLIDE NAVIGATION ====================
 let currentSlide = 1;
 const totalSlides = 4;
@@ -95,20 +104,17 @@ function updateSlideIndicator(slideNumber) {
     });
 }
 
-// ==================== TOMBOL NAVIGASI ====================
 function initNavigation() {
-    const nextButtons = document.querySelectorAll('.next-slide-btn');
-    nextButtons.forEach(btn => {
-        btn.onclick = function() {
-            const next = this.getAttribute('data-next');
+    document.querySelectorAll('.next-slide-btn').forEach(btn => {
+        btn.onclick = () => {
+            const next = btn.getAttribute('data-next');
             if (next) showSlide(parseInt(next));
         };
     });
     
-    const prevButtons = document.querySelectorAll('.prev-slide-btn');
-    prevButtons.forEach(btn => {
-        btn.onclick = function() {
-            const prev = this.getAttribute('data-prev');
+    document.querySelectorAll('.prev-slide-btn').forEach(btn => {
+        btn.onclick = () => {
+            const prev = btn.getAttribute('data-prev');
             if (prev) showSlide(parseInt(prev));
         };
     });
@@ -116,8 +122,7 @@ function initNavigation() {
 
 // ==================== AUTO SKILL BAR ====================
 function initSkillBar() {
-    const skillCards = document.querySelectorAll('.skill-card');
-    skillCards.forEach(card => {
+    document.querySelectorAll('.skill-card').forEach(card => {
         const percentSpan = card.querySelector('.skill-percent');
         const barFill = card.querySelector('.skill-bar-fill');
         if (percentSpan && barFill) {
@@ -152,10 +157,9 @@ const projectsData = [
 function initProjects() {
     const grid = document.getElementById('projectsGrid');
     if (!grid) return;
-    
     grid.innerHTML = '';
     
-    projectsData.forEach((project) => {
+    projectsData.forEach(project => {
         const card = document.createElement('div');
         card.className = 'project-card';
         card.innerHTML = `
@@ -178,19 +182,15 @@ function openModal(project) {
 }
 
 function closeModal() {
-    const modal = document.getElementById('projectModal');
-    modal.classList.add('hidden');
+    document.getElementById('projectModal').classList.add('hidden');
 }
 
-// ==================== CONTACT BUTTONS ====================
+// ==================== CONTACT ====================
 function initContacts() {
-    const contactItems = document.querySelectorAll('.contact-item');
-    
-    contactItems.forEach(item => {
+    document.querySelectorAll('.contact-item').forEach(item => {
         const btn = item.querySelector('.contact-btn');
         const type = item.getAttribute('data-type');
-        const span = item.querySelector('span');
-        const value = span.innerText;
+        const value = item.querySelector('span').innerText;
         
         btn.onclick = () => {
             if (type === 'instagram') {
@@ -204,9 +204,9 @@ function initContacts() {
 
 // ==================== MUSIC PLAYER ====================
 const playlist = [
-    { src: "assets/music/music-1.mp3", title: "music-1.mp3" },
-    { src: "assets/music/music-2.mp3", title: "music-2.mp3" },
-    { src: "assets/music/music-3.mp3", title: "music-3.mp3" }
+    { src: "assets/music/music-1.mp3", title: "Dandelions" },
+    { src: "assets/music/music-2.mp3", title: "Gak Pake Lama" },
+    { src: "assets/music/music-3.mp3", title: "Ophelia" }
 ];
 
 let currentTrack = 0;
@@ -225,10 +225,7 @@ function loadTrack(index) {
     currentTrack = index;
     bgMusic.src = playlist[currentTrack].src;
     trackTitle.innerText = playlist[currentTrack].title;
-    
-    if (isPlaying) {
-        bgMusic.play().catch(e => console.log('Playback failed:', e));
-    }
+    if (isPlaying) bgMusic.play().catch(e => console.log('Playback failed:', e));
 }
 
 function initMusicPlayer() {
@@ -283,15 +280,15 @@ function initMinimizePlayer() {
     
     if (minimizeBtn) {
         minimizeBtn.onclick = () => {
-            if (musicPlayer) musicPlayer.classList.add('minimized');
-            if (expandBtn) expandBtn.classList.remove('hidden');
+            musicPlayer.classList.add('minimized');
+            expandBtn.classList.remove('hidden');
         };
     }
     
     if (expandBtn) {
         expandBtn.onclick = () => {
-            if (musicPlayer) musicPlayer.classList.remove('minimized');
-            if (expandBtn) expandBtn.classList.add('hidden');
+            musicPlayer.classList.remove('minimized');
+            expandBtn.classList.add('hidden');
         };
     }
 }
@@ -302,17 +299,13 @@ function initModal() {
     const closeBtn = document.querySelector('.modal-close');
     const backBtn = document.querySelector('.modal-back-btn');
     
-    if (modal) {
-        modal.onclick = (e) => {
-            if (e.target === modal) closeModal();
-        };
-    }
+    if (modal) modal.onclick = (e) => { if (e.target === modal) closeModal(); };
     if (closeBtn) closeBtn.onclick = closeModal;
     if (backBtn) backBtn.onclick = closeModal;
 }
 
 // ==================== START ====================
-// Mulai animasi ngetik saat halaman load
-window.addEventListener('load', () => {
-    typeNextCharacter();
+window.addEventListener('DOMContentLoaded', () => {
+    bootElement.innerHTML = '';
+    typeNextChar();
 });
