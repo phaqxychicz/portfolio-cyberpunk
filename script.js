@@ -4,7 +4,9 @@ const bootTexts = [
     "> Republic of Gamers - Cyberdeck Initiated",
     "> Scanning neural link... OK",
     "> Loading user profile: ZAMZAMI ... OK",
-    "> Entering the void..."
+    "> Entering the void...",
+    "> Load System ...",
+    "> ...[ COMPLETE ]...",
 ];
 
 let bootIndex = 0;
