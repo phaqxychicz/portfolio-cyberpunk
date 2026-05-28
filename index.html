@@ -18,9 +18,9 @@
     </div>
 </div>
 
-<!-- MUSIC PLAYER - BISA MINIMIZE -->
+<!-- MUSIC PLAYER - DEFAULT MODE SIMPEL (MINIMIZED) -->
 <div class="music-player-wrapper">
-    <div class="music-player" id="musicPlayer">
+    <div class="music-player minimized" id="musicPlayer">
         <div class="player-container">
             <button id="prevBtn" class="nav-btn">
                 <i class="fas fa-backward-step"></i>
@@ -44,6 +44,12 @@
             </button>
         </div>
     </div>
+    
+    <!-- Tombol kecil (mode simpel) - TIDAK HIDDEN SAAT AWAL -->
+    <button id="expandBtn" class="expand-btn">
+        <i class="fas fa-music"></i>
+    </button>
+</div>
     
     <!-- Tombol kecil saat di-minimize -->
     <button id="expandBtn" class="expand-btn hidden">
