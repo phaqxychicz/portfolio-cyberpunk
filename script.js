@@ -11,6 +11,7 @@ const bootTexts = [
 
 let currentLine = 0;
 let currentChar = 0;
+let bootFinished = false;
 const bootElement = document.getElementById('bootText');
 const introLayer = document.getElementById('intro-layer');
 
@@ -22,18 +23,27 @@ const delayBetweenLines = 200;
 function typeNextCharacter() {
     // Jika semua baris sudah selesai
     if (currentLine >= bootTexts.length) {
-        // Tunggu 1 detik, lalu fade out
-        setTimeout(() => {
-            introLayer.style.animation = 'fadeOut 0.5s ease forwards';
+        if (!bootFinished) {
+            bootFinished = true;
+            // Tunggu 1 detik, lalu fade out
             setTimeout(() => {
-                introLayer.style.display = 'none';
-                document.getElementById('slide1').classList.add('active-slide');
-                updateSlideIndicator(1);
-                
-                // Panggil semua fungsi setelah slide muncul
-                initAll();
-            }, 500);
-        }, 1000);
+                introLayer.style.animation = 'fadeOut 0.5s ease forwards';
+                setTimeout(() => {
+                    introLayer.style.display = 'none';
+                    document.getElementById('slide1').classList.add('active-slide');
+                    updateSlideIndicator(1);
+                    
+                    // Panggil semua fungsi setelah slide muncul
+                    initNavigation();
+                    initSkillBar();
+                    initProjects();
+                    initContacts();
+                    initMusicPlayer();
+                    initMinimizePlayer();
+                    initModal();
+                }, 500);
+            }, 1000);
+        }
         return;
     }
     
@@ -53,10 +63,6 @@ function typeNextCharacter() {
     }
 }
 
-// Mulai animasi ngetik saat halaman load
-window.addEventListener('load', () => {
-    typeNextCharacter();
-});
 // ==================== SLIDE NAVIGATION ====================
 let currentSlide = 1;
 const totalSlides = 4;
@@ -88,7 +94,6 @@ function updateSlideIndicator(slideNumber) {
 
 // ==================== TOMBOL NAVIGASI ====================
 function initNavigation() {
-    // Tombol NEXT
     const nextButtons = document.querySelectorAll('.next-slide-btn');
     nextButtons.forEach(btn => {
         btn.onclick = function() {
@@ -97,7 +102,6 @@ function initNavigation() {
         };
     });
     
-    // Tombol PREV
     const prevButtons = document.querySelectorAll('.prev-slide-btn');
     prevButtons.forEach(btn => {
         btn.onclick = function() {
@@ -148,7 +152,7 @@ function initProjects() {
     
     grid.innerHTML = '';
     
-    projectsData.forEach((project, index) => {
+    projectsData.forEach((project) => {
         const card = document.createElement('div');
         card.className = 'project-card';
         card.innerHTML = `
@@ -197,9 +201,9 @@ function initContacts() {
 
 // ==================== MUSIC PLAYER ====================
 const playlist = [
-    { src: "assets/music/music-1.mp3", title: "Dandelions" },
-    { src: "assets/music/music-2.mp3", title: "Gak Pake Lama" },
-    { src: "assets/music/music-3.mp3", title: "Ophelia" }
+    { src: "assets/music/music-1.mp3", title: "music-1.mp3" },
+    { src: "assets/music/music-2.mp3", title: "music-2.mp3" },
+    { src: "assets/music/music-3.mp3", title: "music-3.mp3" }
 ];
 
 let currentTrack = 0;
@@ -274,23 +278,17 @@ function initMinimizePlayer() {
     const minimizeBtn = document.getElementById('minimizeBtn');
     const expandBtn = document.getElementById('expandBtn');
     
-    // Saat pertama kali: mode simpel (player minimized, expandBtn muncul)
-    // Sudah diatur di HTML: musicPlayer.classList.add('minimized')
-    // expandBtn tidak punya class hidden
-    
     if (minimizeBtn) {
         minimizeBtn.onclick = () => {
-            // Sembunyikan player lengkap, tampilkan icon kecil
-            musicPlayer.classList.add('minimized');
-            expandBtn.classList.remove('hidden');
+            if (musicPlayer) musicPlayer.classList.add('minimized');
+            if (expandBtn) expandBtn.classList.remove('hidden');
         };
     }
     
     if (expandBtn) {
         expandBtn.onclick = () => {
-            // Sembunyikan icon kecil, tampilkan player lengkap
-            musicPlayer.classList.remove('minimized');
-            expandBtn.classList.add('hidden');
+            if (musicPlayer) musicPlayer.classList.remove('minimized');
+            if (expandBtn) expandBtn.classList.add('hidden');
         };
     }
 }
@@ -310,18 +308,8 @@ function initModal() {
     if (backBtn) backBtn.onclick = closeModal;
 }
 
-// ==================== INIT ALL ====================
-function initAll() {
-    initNavigation();
-    initSkillBar();
-    initProjects();
-    initContacts();
-    initMusicPlayer();
-    initMinimizePlayer();
-    initModal();
-}
-
 // ==================== START ====================
+// Mulai animasi ngetik saat halaman load
 window.addEventListener('load', () => {
-    typeBootText();
+    typeNextCharacter();
 });
