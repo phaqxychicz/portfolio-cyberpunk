@@ -1,4 +1,4 @@
-// BOOT SEQUENCE - DURASI TEPAT 7 DETIK
+// BOOT SEQUENCE - DURASI TEPAT 15 DETIK
 const bootTexts = [
     "> Initializing ROG STRIX BIOS v.4012...",
     "> Republic of Gamers - Cyberdeck Initiated",
@@ -35,9 +35,9 @@ function typeNextCharacter() {
             completeLine.innerHTML = '<span style="color: #0f0;">> SYSTEM READY - COMPLETE ✓</span>';
             bootElement.appendChild(completeLine);
             
-            // Hitung sisa waktu untuk mencapai 7 detik
+            // Hitung sisa waktu untuk mencapai 15 detik
             const elapsed = Date.now() - startTime;
-            const remaining = Math.max(0, 7000 - elapsed);
+            const remaining = Math.max(0, 15000 - elapsed);
             
             // Tunggu sampai total 7 detik, baru pindah
             setTimeout(() => {
