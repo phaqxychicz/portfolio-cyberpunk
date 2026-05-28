@@ -3,16 +3,9 @@ const bootTexts = [
     "> Initializing ROG STRIX BIOS v.4012...",
     "> Republic of Gamers - Cyberdeck Initiated",
     "> Scanning neural link... [OK]",
-    "> Loading user profile: PHAQXY... [OK]",
+    "> Loading user profile: zamiiny_28... [OK]",
     "> Checking system integrity... [PASS]",
     "> Loading cyberpunk modules... [LOADED]",
-    "> Establishing secure connection... [ESTABLISHED]",
-    "> Rendering neon grid... [RENDERED]",
-    "> Syncing audio drivers... [SYNCED]",
-    "> Calibrating glitch effects... [CALIBRATED]",
-    "> Activating neural interface... [ACTIVE]",
-    "> Loading visual assets... [COMPLETE]",
-    "> Connecting to network... [CONNECTED]",
     "> Bypassing security protocols... [BYPASSED]",
     "> All systems operational. [READY]"
 ];
