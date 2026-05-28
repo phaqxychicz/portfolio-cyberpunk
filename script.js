@@ -1,35 +1,52 @@
-// BOOT SEQUENCE - CEPAT + COMPLETE 9 DETIK
+// BOOT SEQUENCE - DURASI TEPAT 7 DETIK
 const bootTexts = [
-    "> ROG STRIX BIOS v.4012",
+    "> Initializing ROG STRIX BIOS v.4012...",
     "> Republic of Gamers - Cyberdeck Initiated",
-    "> Scanning neural link... OK",
-    "> Loading user profile: zamiiny_28 ... OK",
-    "> Checking system integrity...",
-    "> Loading cyberpunk modules...",
-    "> Establishing secure connection...",
-    "> Rendering neon grid...",
-    "> Syncing audio drivers...",
-    "> Calibrating glitch effects...",
-    "> All systems operational."
+    "> Scanning neural link... [OK]",
+    "> Loading user profile: PHAQXY... [OK]",
+    "> Checking system integrity... [PASS]",
+    "> Loading cyberpunk modules... [LOADED]",
+    "> Establishing secure connection... [ESTABLISHED]",
+    "> Rendering neon grid... [RENDERED]",
+    "> Syncing audio drivers... [SYNCED]",
+    "> Calibrating glitch effects... [CALIBRATED]",
+    "> Activating neural interface... [ACTIVE]",
+    "> Loading visual assets... [COMPLETE]",
+    "> Connecting to network... [CONNECTED]",
+    "> Bypassing security protocols... [BYPASSED]",
+    "> All systems operational. [READY]"
 ];
 
 let currentLine = 0;
 let currentChar = 0;
 let isComplete = false;
+let startTime = null;
 const bootElement = document.getElementById('bootText');
 const introLayer = document.getElementById('intro-layer');
-let typingSpeed = 25; // ms per karakter (lebih cepat)
+
+// Hitung total karakter untuk estimasi kecepatan
+const totalChars = bootTexts.join('').length;
+// Target 7 detik = 7000ms, bagi dengan total karakter
+const typingSpeed = Math.floor(7000 / totalChars); // sekitar 3-5ms per karakter
 
 function typeNextCharacter() {
+    if (!startTime) {
+        startTime = Date.now();
+    }
+    
     if (currentLine >= bootTexts.length) {
         if (!isComplete) {
             isComplete = true;
             const completeLine = document.createElement('div');
             completeLine.className = 'boot-complete';
-            completeLine.innerHTML = '<span style="color: #0f0;">> COMPLETE ✓</span>';
+            completeLine.innerHTML = '<span style="color: #0f0;">> SYSTEM READY - COMPLETE ✓</span>';
             bootElement.appendChild(completeLine);
             
-            // Tunggu 9 detik, lalu fade out intro
+            // Hitung sisa waktu untuk mencapai 7 detik
+            const elapsed = Date.now() - startTime;
+            const remaining = Math.max(0, 7000 - elapsed);
+            
+            // Tunggu sampai total 7 detik, baru pindah
             setTimeout(() => {
                 introLayer.style.animation = 'fadeOut 0.5s ease forwards';
                 setTimeout(() => {
@@ -37,7 +54,7 @@ function typeNextCharacter() {
                     document.getElementById('slide1').classList.add('active-slide');
                     updateSlideIndicator(1);
                 }, 500);
-            }, 9000); // 9 detik
+            }, remaining);
         }
         return;
     }
@@ -52,7 +69,7 @@ function typeNextCharacter() {
         bootElement.innerHTML += '<br>';
         currentLine++;
         currentChar = 0;
-        setTimeout(typeNextCharacter, 50); // jeda antar baris sangat cepat
+        setTimeout(typeNextCharacter, typingSpeed * 2);
     }
 }
 
@@ -60,7 +77,6 @@ function typeNextCharacter() {
 window.addEventListener('load', () => {
     typeNextCharacter();
 });
-
 // SLIDE NAVIGATION
 function showSlide(slideNumber) {
     if (slideNumber < 1 || slideNumber > totalSlides) return;
