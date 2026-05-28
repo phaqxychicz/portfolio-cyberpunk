@@ -73,6 +73,19 @@ function attachNavListeners() {
     });
 }
 
+// AUTO SKILL BAR - OTOMATIS SESUAI PERSENTASE
+function autoSkillBar() {
+    const skillCards = document.querySelectorAll('.skill-card');
+    skillCards.forEach(card => {
+        const percentText = card.querySelector('.skill-percent').textContent;
+        const percent = parseInt(percentText);
+        const barFill = card.querySelector('.skill-bar-fill');
+        if (barFill) {
+            barFill.style.width = percent + '%';
+        }
+    });
+}
+
 // PROJECTS DATA
 const projectsData = [
     {
@@ -219,6 +232,7 @@ loadTrack(0);
 // INIT ALL
 document.addEventListener('DOMContentLoaded', () => {
     attachNavListeners();
+    autoSkillBar();
     initProjects();
     initContactButtons();
     
