@@ -10,15 +10,15 @@ portfolio-phaqxy/
 ├── style.css
 ├── script.js
 ├── images/
-│ ├── my-photo.jpg
-│ ├── project-1.jpg
-│ ├── project-2.jpg
-│ └── project-3.jpg
+│   ├── my-photo.jpg
+│   ├── project-1.jpg
+│   ├── project-2.jpg
+│   └── project-3.jpg
 ├── assets/
-│ └── music/
-│ ├── music-1.mp3
-│ ├── music-2.mp3
-│ └── music-3.mp3
+│   └── music/
+│       ├── music-1.mp3
+│       ├── music-2.mp3
+│       └── music-3.mp3
 └── README.md
 
 ---
