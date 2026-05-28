@@ -248,17 +248,23 @@ function initMinimizePlayer() {
     const minimizeBtn = document.getElementById('minimizeBtn');
     const expandBtn = document.getElementById('expandBtn');
     
+    // Saat pertama kali: mode simpel (player minimized, expandBtn muncul)
+    // Sudah diatur di HTML: musicPlayer.classList.add('minimized')
+    // expandBtn tidak punya class hidden
+    
     if (minimizeBtn) {
         minimizeBtn.onclick = () => {
-            if (musicPlayer) musicPlayer.classList.add('minimized');
-            if (expandBtn) expandBtn.classList.remove('hidden');
+            // Sembunyikan player lengkap, tampilkan icon kecil
+            musicPlayer.classList.add('minimized');
+            expandBtn.classList.remove('hidden');
         };
     }
     
     if (expandBtn) {
         expandBtn.onclick = () => {
-            if (musicPlayer) musicPlayer.classList.remove('minimized');
-            if (expandBtn) expandBtn.classList.add('hidden');
+            // Sembunyikan icon kecil, tampilkan player lengkap
+            musicPlayer.classList.remove('minimized');
+            expandBtn.classList.add('hidden');
         };
     }
 }
