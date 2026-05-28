@@ -738,7 +738,11 @@ body {
     transform: scale(1.1);
 }
 
-/* EXPAND BUTTON (kecil saat di-minimize) */
+.hidden {
+    display: none !important;
+}
+
+/* EXPAND BUTTON (icon musik kecil) */
 .expand-btn {
     background: linear-gradient(135deg, #00f3ff, #ff00ff);
     border: none;
@@ -761,9 +765,12 @@ body {
 
 .expand-btn:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 25px #00f3ff;
 }
 
+/* MUSIC PLAYER - MINIMIZED (sembunyi) */
+.music-player.minimized {
+    display: none;
+}
 @keyframes pulse {
     0% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.5); }
     70% { box-shadow: 0 0 0 10px rgba(0, 243, 255, 0); }
