@@ -1,4 +1,4 @@
-// ==================== BOOT SEQUENCE ====================
+// ==================== BOOT SEQUENCE WITH TYPING ANIMATION ====================
 const bootTexts = [
     "> ROG STRIX BIOS v.4012",
     "> Republic of Gamers - Cyberdeck Initiated",
@@ -6,19 +6,23 @@ const bootTexts = [
     "> Loading user profile: ZAMZAMI ... OK",
     "> Entering the void...",
     "> Load System ...",
-    "> ...[ COMPLETE ]...",
+    "> ...[ COMPLETE ]..."
 ];
 
-let bootIndex = 0;
+let currentLine = 0;
+let currentChar = 0;
 const bootElement = document.getElementById('bootText');
 const introLayer = document.getElementById('intro-layer');
 
-function typeBootText() {
-    if (bootIndex < bootTexts.length) {
-        bootElement.innerHTML += bootTexts[bootIndex] + '<br>';
-        bootIndex++;
-        setTimeout(typeBootText, 500);
-    } else {
+// Kecepatan ngetik per karakter (ms)
+const typingSpeed = 80;
+// Jeda antar baris (ms)
+const delayBetweenLines = 200;
+
+function typeNextCharacter() {
+    // Jika semua baris sudah selesai
+    if (currentLine >= bootTexts.length) {
+        // Tunggu 1 detik, lalu fade out
         setTimeout(() => {
             introLayer.style.animation = 'fadeOut 0.5s ease forwards';
             setTimeout(() => {
@@ -30,9 +34,29 @@ function typeBootText() {
                 initAll();
             }, 500);
         }, 1000);
+        return;
+    }
+    
+    const currentText = bootTexts[currentLine];
+    
+    if (currentChar < currentText.length) {
+        // Tambah satu karakter
+        bootElement.innerHTML += currentText[currentChar];
+        currentChar++;
+        setTimeout(typeNextCharacter, typingSpeed);
+    } else {
+        // Pindah ke baris berikutnya
+        bootElement.innerHTML += '<br>';
+        currentLine++;
+        currentChar = 0;
+        setTimeout(typeNextCharacter, delayBetweenLines);
     }
 }
 
+// Mulai animasi ngetik saat halaman load
+window.addEventListener('load', () => {
+    typeNextCharacter();
+});
 // ==================== SLIDE NAVIGATION ====================
 let currentSlide = 1;
 const totalSlides = 4;
