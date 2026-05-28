@@ -83,6 +83,6 @@ MIT License — bebas digunakan, dimodifikasi, dan didistribusikan.
 ---
 
 <p align="center">
-  <b>REX-EYE // phaqxy.jg</b><br>
+  <b>REX-EYE // phaqxy.jpg</b><br>
   <i>Break the grid, own the void.</i>
 </p>
