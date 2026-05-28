@@ -1,34 +1,68 @@
-// BOOT SEQUENCE (TANPA SUARA)
+// BOOT SEQUENCE - EFEK NGETIK LAMBAT + COMPLETE
 const bootTexts = [
     "> ROG STRIX BIOS v.4012",
     "> Republic of Gamers - Cyberdeck Initiated",
     "> Scanning neural link... OK",
-    "> Loading user profile: zamiiny_28 ... OK",
-    "> Entering the void..."
+    "> Loading user profile: PHAQXY ... OK",
+    "> Checking system integrity...",
+    "> Loading cyberpunk modules...",
+    "> Establishing secure connection...",
+    "> Rendering neon grid...",
+    "> Syncing audio drivers...",
+    "> Calibrating glitch effects...",
+    "> All systems operational."
 ];
 
-let bootIndex = 0;
+let currentLine = 0;
+let currentChar = 0;
+let isComplete = false;
 const bootElement = document.getElementById('bootText');
 const introLayer = document.getElementById('intro-layer');
-let currentSlide = 1;
-const totalSlides = 4;
+let typingSpeed = 80; // ms per karakter
 
-function typeBootText() {
-    if (bootIndex < bootTexts.length) {
-        bootElement.innerHTML += bootTexts[bootIndex] + '<br>';
-        bootIndex++;
-        setTimeout(typeBootText, 500);
+function typeNextCharacter() {
+    if (currentLine >= bootTexts.length) {
+        // Jika sudah selesai semua baris, tampilkan COMPLETE
+        if (!isComplete) {
+            isComplete = true;
+            const completeLine = document.createElement('div');
+            completeLine.className = 'boot-complete';
+            completeLine.innerHTML = '<span style="color: #0f0;">> COMPLETE ✓</span>';
+            bootElement.appendChild(completeLine);
+            
+            // Tunggu 1 detik, lalu fade out intro
+            setTimeout(() => {
+                introLayer.style.animation = 'fadeOut 0.5s ease forwards';
+                setTimeout(() => {
+                    introLayer.style.display = 'none';
+                    document.getElementById('slide1').classList.add('active-slide');
+                    updateSlideIndicator(1);
+                }, 500);
+            }, 1000);
+        }
+        return;
+    }
+    
+    const currentText = bootTexts[currentLine];
+    
+    if (currentChar < currentText.length) {
+        // Tambah satu karakter
+        bootElement.innerHTML += currentText[currentChar];
+        currentChar++;
+        setTimeout(typeNextCharacter, typingSpeed);
+    } else {
+        // Pindah ke baris berikutnya
+        bootElement.innerHTML += '<br>';
+        currentLine++;
+        currentChar = 0;
+        // Jeda antar baris (150ms)
+        setTimeout(typeNextCharacter, 150);
     }
 }
 
+// Mulai efek ngetik saat halaman load
 window.addEventListener('load', () => {
-    typeBootText();
-    
-    setTimeout(() => {
-        introLayer.style.display = 'none';
-        document.getElementById('slide1').classList.add('active-slide');
-        updateSlideIndicator(1);
-    }, 4500);
+    typeNextCharacter();
 });
 
 // SLIDE NAVIGATION
