@@ -12,40 +12,137 @@ body {
     color: #00f3ff;
 }
 
-/* INTRO LAYER */
+/* ==================== eDEX UI INTRO STYLE ==================== */
 .intro-layer {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000;
-    z-index: 2000;
+    background: #0a0a0f;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Share Tech Mono', monospace;
+    z-index: 2000;
 }
 
-.boot-screen {
+.edex-boot-container {
+    width: 80%;
+    max-width: 800px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #00f3ff;
+    padding: 25px;
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+    animation: bootGlow 2s ease-in-out infinite;
+}
+
+@keyframes bootGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); }
+    50% { box-shadow: 0 0 40px rgba(0, 243, 255, 0.5); }
+}
+
+.edex-header {
     display: flex;
-    gap: 10px;
-    font-size: 1rem;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid #ff00ff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.edex-title {
+    color: #00f3ff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.edex-status {
+    color: #ff00ff;
+    font-size: 0.8rem;
+    animation: blinkStatus 1s step-end infinite;
+}
+
+@keyframes blinkStatus {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.edex-progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #1a1a2e;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.edex-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00f3ff, #ff00ff);
+    animation: progressFill 6s ease-out forwards;
+}
+
+@keyframes progressFill {
+    0% { width: 0%; }
+    20% { width: 15%; }
+    40% { width: 35%; }
+    60% { width: 65%; }
+    80% { width: 85%; }
+    100% { width: 100%; }
+}
+
+.edex-log {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
     color: #0f0;
-    text-shadow: 0 0 5px #0f0;
-    padding: 20px;
-    background: rgba(0, 255, 0, 0.05);
-    border-left: 2px solid #0f0;
+    margin-bottom: 25px;
+    line-height: 1.8;
 }
 
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-        visibility: hidden;
-    }
+.log-line {
+    opacity: 0;
+    margin-bottom: 5px;
 }
 
-/* SLIDE SYSTEM */
+.edex-footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #333;
+    padding-top: 10px;
+    font-size: 0.7rem;
+    color: #666;
+}
+
+.edex-warning {
+    color: #0f0;
+    animation: blinkWarning 1s step-end infinite;
+}
+
+@keyframes blinkWarning {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.intro-layer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(0deg, rgba(0, 243, 255, 0.03) 0px, rgba(0, 243, 255, 0.03) 2px, transparent 2px, transparent 4px);
+    pointer-events: none;
+    animation: glitchScan 0.2s linear infinite;
+}
+
+@keyframes glitchScan {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(10px); }
+}
+
+/* ==================== SLIDE SYSTEM ==================== */
 .slide {
     position: fixed;
     top: 0;
@@ -70,9 +167,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: 
-        linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+    background-image: linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
     background-size: 30px 30px;
     pointer-events: none;
 }
@@ -469,12 +564,15 @@ body {
 }
 
 /* MUSIC PLAYER */
-.music-player {
+.music-player-wrapper {
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.7);
+}
+
+.music-player {
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 243, 255, 0.5);
     border-radius: 50px;
@@ -483,9 +581,8 @@ body {
     transition: 0.3s;
 }
 
-.music-player:hover {
-    border-color: #00f3ff;
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+.music-player.minimized {
+    display: none;
 }
 
 .player-container {
@@ -515,6 +612,39 @@ body {
 .play-btn:hover, .nav-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 0 10px #00f3ff;
+}
+
+.minimize-btn {
+    background: transparent;
+    border: none;
+    color: #00f3ff;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+}
+
+.expand-btn {
+    background: linear-gradient(135deg, #00f3ff, #ff00ff);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+    animation: pulse 2s infinite;
+}
+
+.expand-btn i {
+    color: #000;
+    font-size: 20px;
+}
+
+.expand-btn:hover {
+    transform: scale(1.1);
 }
 
 .track-info {
@@ -563,6 +693,12 @@ body {
     border-radius: 50%;
     background: #00f3ff;
     cursor: pointer;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 243, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0); }
 }
 
 /* MODAL */
@@ -627,317 +763,35 @@ body {
     display: none !important;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .final-layout {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .glitch-text { font-size: 1.5rem; }
-    .break-number { font-size: 3rem; top: 10px; right: 15px; }
-    .break-title { font-size: 1rem; letter-spacing: 2px; }
-    .quote-text { font-size: 1rem; }
-    .testimonial-box { padding: 30px 20px; }
-    .nav-buttons { flex-wrap: wrap; }
-    .slide-container { padding: 20px 15px; }
-    .profile-mini { flex-direction: column; align-items: center; text-align: center; }
-    
-    .music-player {
-        top: 10px;
-        right: 10px;
-        padding: 5px 12px;
-    }
-    
-    .track-title { font-size: 9px; }
-    .track-artist { display: none; }
-    .volume-control { display: none; }
-    
-    .play-btn, .nav-btn {
-        width: 28px;
-        height: 28px;
-    }
-}
-
-/* MUSIC PLAYER WRAPPER */
-.music-player-wrapper {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-
-/* MUSIC PLAYER - NORMAL */
-.music-player {
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 243, 255, 0.5);
-    border-radius: 50px;
-    padding: 8px 16px;
-    font-family: 'Rajdhani', monospace;
-    transition: 0.3s;
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
-}
-
-.music-player:hover {
-    border-color: #00f3ff;
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
-}
-
-/* MUSIC PLAYER - MINIMIZED */
-.music-player.minimized {
-    display: none;
-}
-
-.player-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.play-btn, .nav-btn {
-    background: linear-gradient(135deg, #00f3ff, #ff00ff);
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-}
-
-.play-btn i, .nav-btn i {
-    color: #000;
-    font-size: 12px;
-}
-
-.play-btn:hover, .nav-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #00f3ff;
-}
-
-/* MINIMIZE BUTTON */
-.minimize-btn {
-    background: transparent;
-    border: none;
-    color: #00f3ff;
-    cursor: pointer;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-}
-
-.minimize-btn:hover {
-    color: #ff00ff;
-    transform: scale(1.1);
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* EXPAND BUTTON (icon musik kecil) */
-.expand-btn {
-    background: linear-gradient(135deg, #00f3ff, #ff00ff);
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
-    animation: pulse 2s infinite;
-}
-
-.expand-btn i {
-    color: #000;
-    font-size: 20px;
-}
-
-.expand-btn:hover {
-    transform: scale(1.1);
-}
-
-/* MUSIC PLAYER - MINIMIZED (sembunyi) */
-.music-player.minimized {
-    display: none;
-}
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.5); }
-    70% { box-shadow: 0 0 0 10px rgba(0, 243, 255, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0); }
-}
-
-.track-info {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
-    min-width: 100px;
-}
-
-.track-title {
-    font-size: 12px;
-    font-weight: bold;
-    color: #00f3ff;
-    letter-spacing: 1px;
-}
-
-.track-artist {
-    font-size: 9px;
-    color: #ff00ff;
-}
-
-.volume-control {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.volume-control i {
-    font-size: 12px;
-    color: #00f3ff;
-}
-
-#volumeSlider {
-    width: 60px;
-    height: 3px;
-    -webkit-appearance: none;
-    background: rgba(0, 243, 255, 0.3);
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-#volumeSlider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #00f3ff;
-    cursor: pointer;
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* RESPONSIVE MUSIC PLAYER */
-@media (max-width: 768px) {
-    .music-player-wrapper {
-        top: 10px;
-        right: 10px;
-    }
-    
-    .music-player {
-        padding: 5px 12px;
-    }
-    
-    .track-title { font-size: 9px; }
-    .track-artist { display: none; }
-    .volume-control { display: none; }
-    
-    .play-btn, .nav-btn {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .minimize-btn {
-        width: 24px;
-        height: 24px;
-    }
-    
-    .expand-btn {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .expand-btn i {
-        font-size: 18px;
-    }
-}
-
-/* INTRO LAYER - PERBAIKAN */
-.intro-layer {
+/* FLOATING BINARY NUMBERS */
+.binary-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000;
-    z-index: 2000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.binary {
+    position: absolute;
+    color: rgba(0, 243, 255, 0.15);
     font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    white-space: nowrap;
+    animation: floatUp 20s linear infinite;
 }
 
-.boot-screen {
-    display: flex;
-    gap: 10px;
-    font-size: 1rem;
-    color: #0f0;
-    text-shadow: 0 0 5px #0f0;
-    padding: 30px;
-    background: rgba(0, 255, 0, 0.05);
-    border-left: 3px solid #0f0;
-    min-width: 500px;
-    max-width: 90%;
+@keyframes floatUp {
+    0% { transform: translateY(100vh); opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(-100px); opacity: 0; }
 }
 
-.boot-text {
-    white-space: pre-wrap;
-    word-break: break-all;
-    line-height: 1.6;
-}
-
-.boot-cursor {
-    animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-        visibility: hidden;
-    }
-}
-
-.boot-complete {
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px solid #0f0;
-    animation: glowPulse 0.5s ease-in-out;
-}
-
-@keyframes glowPulse {
-    0% { text-shadow: 0 0 0 #0f0; }
-    50% { text-shadow: 0 0 10px #0f0; }
-    100% { text-shadow: 0 0 0 #0f0; }
-}
-
-/* Responsive untuk boot screen */
-@media (max-width: 768px) {
-    .boot-screen {
-        font-size: 0.7rem;
-        min-width: 280px;
-        padding: 15px;
-    }
-}
-
-/* ==================== ELEMEN PENDUKUNG CYBERPUNK ==================== */
-
-/* 1. Animated Circuit Lines */
+/* CIRCUIT LINES */
 .circuit-line {
     position: fixed;
     bottom: 0;
@@ -982,92 +836,7 @@ body {
     100% { right: 100%; opacity: 0; }
 }
 
-/* 2. Floating Binary Numbers */
-.binary-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
-}
-
-.binary {
-    position: absolute;
-    color: rgba(0, 243, 255, 0.15);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 14px;
-    white-space: nowrap;
-    animation: floatUp 20s linear infinite;
-}
-
-@keyframes floatUp {
-    0% {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.5;
-    }
-    90% {
-        opacity: 0.5;
-    }
-    100% {
-        transform: translateY(-100px);
-        opacity: 0;
-    }
-}
-
-/* 3. Glitch Effect on Hover untuk Gambar */
-.photo-frame:hover .frame-border,
-.project-card:hover {
-    animation: glitchEffect 0.3s ease infinite;
-}
-
-@keyframes glitchEffect {
-    0% {
-        transform: translate(0);
-        box-shadow: 0 0 0 #ff00ff;
-    }
-    20% {
-        transform: translate(-2px, 1px);
-        box-shadow: -2px 0 5px #ff00ff;
-    }
-    40% {
-        transform: translate(2px, -1px);
-        box-shadow: 2px 0 5px #00f3ff;
-    }
-    60% {
-        transform: translate(-1px, 2px);
-        box-shadow: 0 -2px 5px #ff00ff;
-    }
-    80% {
-        transform: translate(1px, -2px);
-        box-shadow: 0 2px 5px #00f3ff;
-    }
-    100% {
-        transform: translate(0);
-        box-shadow: 0 0 0 transparent;
-    }
-}
-
-/* 4. Neon Pulse Button (lebih hidup) */
-.cyber-btn, .next-slide-btn, .prev-slide-btn {
-    animation: neonPulse 2s ease-in-out infinite;
-}
-
-@keyframes neonPulse {
-    0%, 100% {
-        box-shadow: 0 0 5px #00f3ff, 0 0 10px rgba(0, 243, 255, 0.3);
-    }
-    50% {
-        box-shadow: 0 0 20px #00f3ff, 0 0 30px rgba(0, 243, 255, 0.5);
-    }
-}
-
-/* 5. Hologram Corner */
+/* HOLOGRAM CORNER */
 .hologram-corner {
     position: fixed;
     bottom: 20px;
@@ -1094,4 +863,50 @@ body {
 @keyframes blinkCorner {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
+}
+
+/* GLITCH EFFECT ON HOVER */
+.photo-frame:hover .frame-border,
+.project-card:hover {
+    animation: glitchEffect 0.3s ease infinite;
+}
+
+@keyframes glitchEffect {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 1px); box-shadow: -2px 0 5px #ff00ff; }
+    40% { transform: translate(2px, -1px); box-shadow: 2px 0 5px #00f3ff; }
+    60% { transform: translate(-1px, 2px); }
+    80% { transform: translate(1px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* NEON PULSE BUTTON */
+.next-slide-btn, .prev-slide-btn, .cyber-btn {
+    animation: neonPulse 2s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+    0%, 100% { box-shadow: 0 0 5px #00f3ff, 0 0 10px rgba(0, 243, 255, 0.3); }
+    50% { box-shadow: 0 0 20px #00f3ff, 0 0 30px rgba(0, 243, 255, 0.5); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .final-layout { grid-template-columns: 1fr; gap: 20px; }
+    .glitch-text { font-size: 1.5rem; }
+    .break-number { font-size: 3rem; top: 10px; right: 15px; }
+    .break-title { font-size: 1rem; letter-spacing: 2px; }
+    .quote-text { font-size: 1rem; }
+    .testimonial-box { padding: 30px 20px; }
+    .nav-buttons { flex-wrap: wrap; }
+    .slide-container { padding: 20px 15px; }
+    .profile-mini { flex-direction: column; align-items: center; text-align: center; }
+    .music-player { top: 10px; right: 10px; padding: 5px 12px; }
+    .track-title { font-size: 9px; }
+    .track-artist, .volume-control { display: none; }
+    .play-btn, .nav-btn { width: 28px; height: 28px; }
+    .expand-btn { width: 40px; height: 40px; }
+    .expand-btn i { font-size: 18px; }
+    .edex-boot-container { width: 95%; padding: 15px; }
+    .edex-log { font-size: 0.7rem; }
 }
