@@ -3,49 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>zamiiny | Cyberpunk Portfolio</title>
+    <title>Zamiskuy | Cyberpunk Portfolio</title>
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     
-    <!-- Dynamic Open Graph / Social Media Preview -->
-    <meta property="og:title" id="ogTitle" content="zamiiny | Cyberpunk Portfolio">
-    <meta property="og:description" id="ogDesc" content="ini tentang kegabutan yang hakiki">
-    <meta property="og:image" id="ogImage" content="/images/preview.jpg">
+    <!-- Dynamic Open Graph -->
+    <meta property="og:title" id="ogTitle" content="Zamiskuy | Cyberpunk Portfolio">
+    <meta property="og:description" id="ogDesc" content="Portfolio bergaya cyberpunk dengan 4 slide, music player, dan efek neon.">
+    <meta property="og:image" id="ogImage" content="/images/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url" id="ogUrl" content="">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" id="twitterTitle" content="Zamiskuy | Cyberpunk Portfolio">
-    <meta name="twitter:description" id="twitterDesc" content="Portfolio bergaya cyberpunk dengan 4 slide, music player, dan efek neon.">
-    <meta name="twitter:image" id="twitterImage" content="/images/og-image.jpg">
 </head>
 <body>
 
-<!-- INTRO BOOTING (ROG STYLE - ANIMASI NGETIK) -->
+<!-- INTRO LAYER - GAYA eDEX UI -->
 <div id="intro-layer" class="intro-layer">
-    <div class="boot-screen">
-        <div class="boot-text" id="bootText"></div>
-        <div class="boot-cursor">_</div>
+    <div class="edex-boot-container">
+        <div class="edex-header">
+            <span class="edex-title">eDEX-UI v.4.0.1</span>
+            <span class="edex-status" id="bootStatus">BOOTING...</span>
+        </div>
+        <div class="edex-progress-bar">
+            <div class="edex-progress-fill" id="edexProgressFill"></div>
+        </div>
+        <div class="edex-log" id="edexLog">
+            <div class="log-line">> Initializing neural interface...</div>
+            <div class="log-line">> Loading cyberpunk kernel...</div>
+            <div class="log-line">> Scanning neural link... [OK]</div>
+            <div class="log-line">> Loading user profile: ZAMISKUY... [OK]</div>
+            <div class="log-line">> Establishing secure connection... [OK]</div>
+            <div class="log-line">> Calibrating neon grid... [OK]</div>
+            <div class="log-line">> Syncing audio drivers... [OK]</div>
+            <div class="log-line">> Activating glitch effects... [OK]</div>
+            <div class="log-line">> Loading modules... [DONE]</div>
+            <div class="log-line">> All systems operational.</div>
+        </div>
+        <div class="edex-footer">
+            <span class="edex-copyright">© 4012 - REX-EYE CORP</span>
+            <span class="edex-warning" id="systemReady">[ SYSTEM INITIALIZING ]</span>
+        </div>
     </div>
 </div>
 
-<!-- MUSIC PLAYER - DEFAULT MODE SIMPEL (MINIMIZED) -->
+<!-- MUSIC PLAYER - DEFAULT MODE SIMPEL -->
 <div class="music-player-wrapper">
     <div class="music-player minimized" id="musicPlayer">
         <div class="player-container">
-            <button id="prevBtn" class="nav-btn">
-                <i class="fas fa-backward-step"></i>
-            </button>
-            <button id="playPauseBtn" class="play-btn">
-                <i class="fas fa-play"></i>
-            </button>
-            <button id="nextBtn" class="nav-btn">
-                <i class="fas fa-forward-step"></i>
-            </button>
+            <button id="prevBtn" class="nav-btn"><i class="fas fa-backward-step"></i></button>
+            <button id="playPauseBtn" class="play-btn"><i class="fas fa-play"></i></button>
+            <button id="nextBtn" class="nav-btn"><i class="fas fa-forward-step"></i></button>
             <div class="track-info">
                 <span class="track-title" id="trackTitle">music-1.mp3</span>
                 <span class="track-artist">Now Playing</span>
@@ -54,16 +66,10 @@
                 <i class="fas fa-volume-up"></i>
                 <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
             </div>
-            <button id="minimizeBtn" class="minimize-btn">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+            <button id="minimizeBtn" class="minimize-btn"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
-    
-    <!-- Tombol kecil (mode simpel) -->
-    <button id="expandBtn" class="expand-btn">
-        <i class="fas fa-music"></i>
-    </button>
+    <button id="expandBtn" class="expand-btn"><i class="fas fa-music"></i></button>
 </div>
 
 <audio id="bgMusic" preload="auto"></audio>
@@ -76,7 +82,7 @@
 
 <!-- Hologram Corner -->
 <div class="hologram-corner"></div>
-    
+
 <!-- SLIDE 1: HI I AM ZAMISKUY -->
 <div id="slide1" class="slide active-slide">
     <div class="cyber-grid"></div>
@@ -85,7 +91,7 @@
     
     <div class="slide-container">
         <div class="break-number">01</div>
-        <div class="break-title">HI I AM ZAMIINY</div>
+        <div class="break-title">HI I AM ZAMISKUY</div>
         <div class="break-line"></div>
         
         <div class="photo-frame">
@@ -94,7 +100,7 @@
             </div>
         </div>
         
-        <h1 class="glitch-text" data-text="ZAMISKUY">M Nafan Zamzami</h1>
+        <h1 class="glitch-text" data-text="ZAMISKUY">ZAMISKUY</h1>
         <p class="tagline">Visual Shadowrunner | Cyberpunk Designer</p>
         
         <button class="next-slide-btn" data-next="2">
@@ -102,10 +108,7 @@
         </button>
         
         <div class="slide-indicator">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+            <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
         </div>
     </div>
 </div>
@@ -123,10 +126,11 @@
         <div class="testimonial-box">
             <div class="quote-mark">"</div>
             <div class="quote-text">
-                spanyol melawan kostarika<br>
-                aku tertawa untuk menutupi luka<br>
+                Take it from me, kid.<br>
+                sometimes it's okay to run.<br>
+                You run as fast as you damn well can.
             </div>
-            <div class="quote-author">— phaqxy.jpg</div>
+            <div class="quote-author">— Anonymous Shadowrunner</div>
         </div>
         
         <div class="profile-mini">
@@ -135,7 +139,7 @@
             </div>
             <div class="profile-mini-info">
                 <h3>ZAMISKUY</h3>
-                <p>Visual Designer</p>
+                <p>Visual Designer & Creative Hacker</p>
                 <div class="bio-short">
                     💀 Breaking visual boundaries since 2020.<br>
                     Chaos is my canvas, neon is my color.
@@ -149,15 +153,12 @@
         </div>
         
         <div class="slide-indicator">
-            <span class="dot"></span>
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+            <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
         </div>
     </div>
 </div>
 
-<!-- SLIDE 3: SOFTWARE SKILLS (AUTO BAR) -->
+<!-- SLIDE 3: SOFTWARE SKILLS -->
 <div id="slide3" class="slide">
     <div class="cyber-grid"></div>
     <div class="scanline"></div>
@@ -178,7 +179,6 @@
                     <div class="skill-bar-fill"></div>
                 </div>
             </div>
-            
             <div class="skill-card">
                 <div class="skill-header">
                     <i class="fas fa-palette"></i>
@@ -189,7 +189,6 @@
                     <div class="skill-bar-fill"></div>
                 </div>
             </div>
-            
             <div class="skill-card">
                 <div class="skill-header">
                     <i class="fas fa-vector-square"></i>
@@ -208,10 +207,7 @@
         </div>
         
         <div class="slide-indicator">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot active"></span>
-            <span class="dot"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
         </div>
     </div>
 </div>
@@ -241,12 +237,12 @@
                 <div class="contact-list">
                     <div class="contact-item" data-type="instagram">
                         <i class="fab fa-instagram"></i>
-                        <span>@zamiiny_28</span>
+                        <span>@zamiskuy</span>
                         <button class="contact-btn">→</button>
                     </div>
                     <div class="contact-item" data-type="github">
                         <i class="fab fa-github"></i>
-                        <span>@...</span>
+                        <span>@zamiskuy</span>
                         <button class="contact-btn">→</button>
                     </div>
                 </div>
@@ -262,10 +258,7 @@
         </div>
         
         <div class="slide-indicator">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot active"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
         </div>
     </div>
 </div>
