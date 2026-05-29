@@ -309,3 +309,36 @@ window.addEventListener('DOMContentLoaded', () => {
     bootElement.innerHTML = '';
     typeNextChar();
 });
+
+// ==================== FLOATING BINARY NUMBERS ====================
+function createBinary() {
+    const binaryContainer = document.getElementById('binaryContainer');
+    if (!binaryContainer) return;
+    
+    const binary = document.createElement('div');
+    binary.className = 'binary';
+    
+    // Random binary string (10-30 digit)
+    const length = Math.floor(Math.random() * 20) + 10;
+    let binaryStr = '';
+    for (let i = 0; i < length; i++) {
+        binaryStr += Math.random() > 0.5 ? '1' : '0';
+    }
+    binary.textContent = binaryStr;
+    
+    // Random position
+    binary.style.left = Math.random() * 100 + '%';
+    binary.style.fontSize = (Math.random() * 10 + 10) + 'px';
+    binary.style.animationDuration = (Math.random() * 15 + 10) + 's';
+    binary.style.animationDelay = Math.random() * 5 + 's';
+    
+    binaryContainer.appendChild(binary);
+    
+    // Remove after animation
+    setTimeout(() => {
+        binary.remove();
+    }, 20000);
+}
+
+// Create binary numbers periodically
+setInterval(createBinary, 800);
