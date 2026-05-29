@@ -934,3 +934,164 @@ body {
         padding: 15px;
     }
 }
+
+/* ==================== ELEMEN PENDUKUNG CYBERPUNK ==================== */
+
+/* 1. Animated Circuit Lines */
+.circuit-line {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.circuit-line::before {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 150px;
+    height: 2px;
+    background: linear-gradient(90deg, #00f3ff, transparent);
+    animation: moveCircuit 8s linear infinite;
+}
+
+.circuit-line::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(270deg, #ff00ff, transparent);
+    animation: moveCircuitRight 10s linear infinite;
+}
+
+@keyframes moveCircuit {
+    0% { left: -150px; opacity: 0; }
+    50% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+}
+
+@keyframes moveCircuitRight {
+    0% { right: -200px; opacity: 0; }
+    50% { opacity: 1; }
+    100% { right: 100%; opacity: 0; }
+}
+
+/* 2. Floating Binary Numbers */
+.binary-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.binary {
+    position: absolute;
+    color: rgba(0, 243, 255, 0.15);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    white-space: nowrap;
+    animation: floatUp 20s linear infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.5;
+    }
+    90% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+}
+
+/* 3. Glitch Effect on Hover untuk Gambar */
+.photo-frame:hover .frame-border,
+.project-card:hover {
+    animation: glitchEffect 0.3s ease infinite;
+}
+
+@keyframes glitchEffect {
+    0% {
+        transform: translate(0);
+        box-shadow: 0 0 0 #ff00ff;
+    }
+    20% {
+        transform: translate(-2px, 1px);
+        box-shadow: -2px 0 5px #ff00ff;
+    }
+    40% {
+        transform: translate(2px, -1px);
+        box-shadow: 2px 0 5px #00f3ff;
+    }
+    60% {
+        transform: translate(-1px, 2px);
+        box-shadow: 0 -2px 5px #ff00ff;
+    }
+    80% {
+        transform: translate(1px, -2px);
+        box-shadow: 0 2px 5px #00f3ff;
+    }
+    100% {
+        transform: translate(0);
+        box-shadow: 0 0 0 transparent;
+    }
+}
+
+/* 4. Neon Pulse Button (lebih hidup) */
+.cyber-btn, .next-slide-btn, .prev-slide-btn {
+    animation: neonPulse 2s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+    0%, 100% {
+        box-shadow: 0 0 5px #00f3ff, 0 0 10px rgba(0, 243, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px #00f3ff, 0 0 30px rgba(0, 243, 255, 0.5);
+    }
+}
+
+/* 5. Hologram Corner */
+.hologram-corner {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 80px;
+    height: 80px;
+    pointer-events: none;
+    z-index: 10;
+    border-left: 2px solid #00f3ff;
+    border-bottom: 2px solid #ff00ff;
+    opacity: 0.6;
+}
+
+.hologram-corner::before {
+    content: '◢';
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    font-size: 24px;
+    color: #00f3ff;
+    animation: blinkCorner 2s step-end infinite;
+}
+
+@keyframes blinkCorner {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
